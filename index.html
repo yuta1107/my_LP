@@ -6,8 +6,6 @@
   <title>ペットメモリアル　つむぎ｜福島・宮城対応｜24時間365日受付</title>
   <meta name="description" content="福島・宮城エリア対応のペット火葬・ペット葬儀。累計施行数150,000件の実績。24時間365日受付。税込6,600円〜。個別火葬・立会い火葬・訪問火葬。相談無料。">
 
-  <!-- GTM / GA4 / コンバージョン タグはここに挿入 -->
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -41,246 +39,212 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* Tailwindで表現しにくい最小限のカスタムCSSのみ */
     html { scroll-behavior: smooth; }
-    body { font-family: 'Noto Sans JP', sans-serif; }
+    body { font-family: 'Noto Sans JP', sans-serif; font-size: 15px; }
 
-    /* ヒーロー背景グラデーション */
+    /* ── ベーステキストサイズ底上げ ── */
+    p, li, td, th, span { font-size: inherit; }
+
     .hero-bg {
       background:
         radial-gradient(ellipse 70% 60% at 80% 30%, rgba(244,167,181,0.18) 0%, transparent 60%),
         radial-gradient(ellipse 50% 70% at 15% 75%, rgba(139,168,136,0.12) 0%, transparent 60%),
         linear-gradient(160deg, #fff9f7 0%, #FDF8F4 60%, #f5ede8 100%);
     }
-
-    /* ヒーロータイトルのアンダーライン */
     .hero-em {
-      position: relative;
-      font-style: normal;
-      color: #c0607a;
+      position: relative; font-style: normal; color: #c0607a;
     }
     .hero-em::after {
-      content: '';
-      position: absolute;
-      bottom: 2px; left: 0; right: 0;
-      height: 2px;
-      background: #F4A7B5;
-      border-radius: 2px;
+      content: ''; position: absolute; bottom: 2px; left: 0; right: 0;
+      height: 2px; background: #F4A7B5; border-radius: 2px;
     }
-
-    /* スクロールアニメーション */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .reveal.visible { opacity: 1; transform: none; }
-
-    /* フェードアップ（ヒーロー） */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
     .fade-up       { animation: fadeUp 1s ease both; }
     .fade-up-delay { animation: fadeUp 1s 0.2s ease both; }
-
-    /* 肉球デコ */
     .paw-deco { position: absolute; opacity: 0.06; pointer-events: none; user-select: none; }
-
-    /* プランカード上部グラデーション */
-    .plan-header-featured {
-      background: linear-gradient(135deg, #e07090, #c0607a);
-    }
-
-    /* 比較表 */
+    .plan-header-featured { background: linear-gradient(135deg, #e07090, #c0607a); }
     .compare-ours { background: #FDF0F3; color: #c0607a; font-weight: 600; }
-    .compare-head-ours {
-      background: linear-gradient(135deg, #e07090, #c0607a);
-      color: #fff;
-    }
+    .compare-head-ours { background: linear-gradient(135deg, #e07090, #c0607a); color: #fff; }
+    .contact-bg { background: linear-gradient(135deg, #5C4A32, #3A2E22); }
 
-    /* お問い合わせ背景 */
-    .contact-bg {
-      background: linear-gradient(135deg, #5C4A32, #3A2E22);
-    }
-
-    /* FAQアコーディオン */
+    /* ── FAQアコーディオン ── */
     .faq-item .faq-a { display: none; }
     .faq-item.open .faq-a { display: block; }
     .faq-item.open .faq-toggle { transform: rotate(180deg); }
     .faq-toggle { transition: transform 0.3s; }
 
-    /* キャンペーンリボン */
-    .campaign-ribbon {
-      position: absolute;
-      top: 16px; right: -24px;
-      background: #c0607a;
-      color: #fff;
-      font-size: 0.65rem;
-      padding: 4px 32px;
-      transform: rotate(45deg);
-      letter-spacing: 0.1em;
-    }
+    /* ── エリアアコーディオン ── */
+    .area-body { display: none; }
+    .area-item.open .area-body { display: block; }
+    .area-item.open .area-arrow { transform: rotate(180deg); }
+    .area-arrow { transition: transform 0.3s; display: inline-block; }
 
-    /* プランカードのボーダー上部ライン */
     .reason-card-top::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #F4A7B5, #8BA888);
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: linear-gradient(90deg, #F4A7B5, #8BA888);
     }
+    .btn-gradient { background: linear-gradient(135deg, #e07090, #c0607a); }
+    .btn-gradient:hover { box-shadow: 0 8px 24px rgba(192,96,122,0.35); transform: translateY(-2px); }
 
-    /* CTAメインボタングラデーション */
-    .btn-gradient {
-      background: linear-gradient(135deg, #e07090, #c0607a);
-    }
-    .btn-gradient:hover {
-      box-shadow: 0 8px 24px rgba(192,96,122,0.35);
-      transform: translateY(-2px);
-    }
-
-    /* お客様の声スクロール */
     @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 1.25rem)); } /* 1.25remはgapの半分 */
-  }
-  .animate-scroll {
-    display: flex;
-    width: max-content;
-    animation: scroll 60s linear infinite; /* 60秒で一周。速度はここで調整 */
-  }
-  .animate-scroll:hover {
-    animation-play-state: paused; /* マウスホバーで一時停止 */
-  }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 1.25rem)); }
+    }
+    .animate-scroll {
+      display: flex; width: max-content;
+      animation: scroll 60s linear infinite;
+    }
+    .animate-scroll:hover { animation-play-state: paused; }
+
+    @keyframes pulse-slow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
+
+    /* ── テキストサイズ補正 ── */
+    .text-readable      { font-size: 0.9rem !important; line-height: 1.85 !important; }
+    .text-readable-sm   { font-size: 0.82rem !important; line-height: 1.8 !important; }
+    .text-readable-xs   { font-size: 0.76rem !important; line-height: 1.75 !important; }
+    .label-tag          { font-size: 0.72rem !important; }
+
+    /* ── レスポンシブ強化 ── */
+    @media (max-width: 767px) {
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .plan-grid { grid-template-columns: 1fr !important; }
+      .contact-grid { grid-template-columns: 1fr !important; }
+      .step-inner { flex-direction: column !important; }
+      .step-img-wrap { width: 100% !important; }
+      .compare-table { font-size: 0.75rem; }
+      .compare-table td, .compare-table th { padding: 10px 8px !important; }
+      .reason-grid { grid-template-columns: 1fr !important; }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .reason-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .plan-grid   { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+
+    /* ── コンタクト中央寄せ ── */
+    .contact-center { text-align: center; }
+    .contact-card   { max-width: 540px; margin: 0 auto; }
   </style>
 </head>
 
 <body class="bg-cream text-charcoal leading-relaxed overflow-x-hidden pb-16 md:pb-0">
 
   <!-- ========== ヘッダー ========== -->
-  <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-2.5
-                 bg-cream/95 backdrop-blur-md border-b border-pink-mid shadow-sm">
-    <div class="flex items-center gap-2.5">
-      <span class="text-2xl">🐾</span>
-      <div class="font-serif">
-        <strong class="block text-base font-semibold text-deep-bark tracking-wide">ペットメモリアル　つむぎ</strong>
-      </div>
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 py-2 md:py-3
+               bg-cream/95 backdrop-blur-md border-b border-pink-mid shadow-sm">
+  
+  <div class="flex items-center gap-2 flex-shrink-0">
+    <span class="text-xl md:text-2xl">🐾</span>
+    <div class="font-serif whitespace-nowrap">
+      <strong class="block text-sm md:text-2xl font-semibold text-deep-bark tracking-wide">
+        ペットメモリアル つむぎ
+      </strong>
     </div>
-    <div class="text-right">
-      <div class="text-[0.6rem] text-pink font-medium tracking-wider">相談無料 / 24時間365日受付</div>
-      <a href="tel:0800-3338617" class="cv-tel block font-serif text-xl md:text-2xl font-semibold text-deep-bark tracking-wide hover:text-pink transition-colors">
-        0800-333-8617
-      </a>
-      <small class="text-[0.6rem] text-text-light tracking-wider">早朝・深夜でもお気軽にどうぞ</small>
+  </div>
+
+  <div class="text-right flex-shrink-0">
+    <div class="text-[0.7rem] md:text-xs text-pink-500 font-medium tracking-wider mb-0.5">
+      相談無料 / 24時間365日受付
     </div>
-  </header>
+    
+    <a href="tel:0800-3338617" 
+       class="cv-tel block font-serif text-lg md:text-2xl font-semibold text-deep-bark tracking-wide hover:text-pink transition-colors leading-none">
+      0800-333-8617
+    </a>
+    
+    <small class="hidden md:block text-[0.7rem] text-gray-500 tracking-wider mt-1">
+      早朝・深夜でもお気軽にどうぞ
+    </small>
+  </div>
+
+</header>
 
   <!-- ========== ヒーロー ========== -->
-<section class="relative min-h-screen flex items-center pt-[70px] overflow-hidden">
-  <div class="hero-bg absolute inset-0"></div>
-  
-  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-    <img src="img/fv1.png" alt="犬" 
-         class="absolute w-40 md:w-64 opacity-20 top-[10%] left-[0%] rotate-[-15deg] object-cover"
-         style="clip-path: circle(35%);">
-    
-    <img src="img/fv2.png" alt="ねこ" 
-         class="absolute w-48 md:w-72 opacity-20 bottom-[5%] right-[10%] rotate-[10deg] object-cover"
-         style="clip-path: circle(35%);">
-    
-    <img src="img/fv3.png" alt="ウサギ" 
-         class="absolute w-36 md:w-56 opacity-20 top-[10%] left-[60%] rotate-[5deg] object-cover"
-         style="clip-path: circle(35%);">
-    
-    <img src="img/fv4.png" alt="鳥" 
-         class="absolute w-44 md:w-60 opacity-20 bottom-[15%] left-[11%] rotate-[-10deg] object-cover"
-         style="clip-path: circle(35%);">
-  </div>
-
-  <div class="paw-deco paw-1 text-9xl top-[10%] right-[5%] rotate-12 opacity-10">🐾</div>
-  <div class="paw-deco paw-2 text-7xl bottom-[15%] left-[3%] -rotate-12 opacity-10">🐾</div>
-
-  <div class="relative z-10 w-full max-w-5xl mx-auto px-6 py-12
-              grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
-
-    <div class="fade-up">
-      <span class="inline-flex items-center gap-2 text-xs tracking-widest text-deep-bark
-                   bg-pink-mid px-3.5 py-1.5 rounded-full mb-5 font-medium">
-        🌸 福島・宮城エリア対応
-      </span>
-      <h1 class="font-serif text-3xl md:text-4xl font-medium text-deep-bark leading-relaxed tracking-wide mb-3">
-        大切な家族を、<br>
-        <em class="hero-em">最後まで</em><br>
-        心を込めてお見送り。
-      </h1>
-      <p class="text-sm text-text-sub mb-7 leading-loose">
-        突然のことで戸惑われているかと思います。<br>
-        どんな不安でも、まずはお電話ください。<br>
-        葬儀ディレクター1級保有スタッフが<br>
-        丁寧にご対応いたします。
-      </p>
-
-      <div class="flex flex-wrap gap-2.5 mb-7">
-        <div class="bg-white border border-pink-mid rounded-lg px-3.5 py-2 text-center shadow-sm">
-          <strong class="block font-serif text-xl text-rose font-semibold">150,000件</strong>
-          <span class="block text-[0.62rem] text-text-light tracking-wide">累計施行数</span>
-        </div>
-        <div class="bg-white border border-pink-mid rounded-lg px-3.5 py-2 text-center shadow-sm">
-          <strong class="block font-serif text-xl text-rose font-semibold">95%</strong>
-          <span class="block text-[0.62rem] text-text-light tracking-wide">お客様満足度</span>
-        </div>
-        <div class="bg-white border border-pink-mid rounded-lg px-3.5 py-2 text-center shadow-sm">
-          <strong class="block font-serif text-xl text-rose font-semibold">当日中</strong>
-          <span class="block text-[0.62rem] text-text-light tracking-wide">ご返骨可能</span>
-        </div>
-      </div>
-
-      <div class="bg-gradient-to-br from-pink-light to-white border border-pink-mid rounded-xl px-5 py-4 shadow-sm">
-        <small class="block text-xs text-text-light mb-1">葬儀ディレクター1級保有者在籍！火葬は100%自社対応だから</small>
-        <div class="font-serif text-4xl text-rose font-semibold tracking-tight">
-          税込<sup class="text-lg">¥</sup>6,600<small class="text-lg">〜</small>
-        </div>
-        <div class="text-xs text-text-sub mt-1">適正価格 ＆ 迅速対応 ／ 出張費込み</div>
-      </div>
+  <section class="relative min-h-screen flex items-center pt-[72px] overflow-hidden">
+    <div class="hero-bg absolute inset-0"></div>
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <img src="img/fv1.png" alt="犬" class="absolute w-40 md:w-64 opacity-20 top-[10%] left-[0%] rotate-[-15deg] object-cover" style="clip-path:circle(35%);">
+      <img src="img/fv2.png" alt="ねこ" class="absolute w-48 md:w-72 opacity-20 bottom-[5%] right-[10%] rotate-[10deg] object-cover" style="clip-path:circle(35%);">
+      <img src="img/fv3.png" alt="ウサギ" class="absolute w-36 md:w-56 opacity-20 top-[10%] left-[60%] rotate-[5deg] object-cover" style="clip-path:circle(35%);">
+      <img src="img/fv4.png" alt="鳥" class="absolute w-44 md:w-60 opacity-20 bottom-[15%] left-[11%] rotate-[-10deg] object-cover" style="clip-path:circle(35%);">
     </div>
+    <div class="paw-deco text-9xl top-[10%] right-[5%] rotate-12">🐾</div>
+    <div class="paw-deco text-7xl bottom-[15%] left-[3%] -rotate-12">🐾</div>
 
-    <div class="fade-up-delay">
-      <div class="bg-white border-2 border-pink rounded-xl p-7 shadow-[0_8px_32px_rgba(244,167,181,0.2)]">
-        <div class="text-xs tracking-wider text-pink font-semibold text-center mb-3">
-          🐾 ペットのお葬式の事ならなんでもご相談ください
+    <div class="relative z-10 w-full max-w-5xl mx-auto px-6 py-12 hero-grid grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+
+      <div class="fade-up">
+        <span class="inline-flex items-center gap-2 text-xs tracking-widest text-deep-bark bg-pink-mid px-3.5 py-1.5 rounded-full mb-5 font-medium">
+          🌸 福島・宮城エリア対応
+        </span>
+        <h1 class="font-serif text-3xl md:text-4xl font-medium text-deep-bark leading-relaxed tracking-wide mb-4">
+          大切な家族を、<br><em class="hero-em">最後まで</em><br>心を込めてお見送り。
+        </h1>
+        <p class="text-readable text-text-sub mb-7">
+          突然のことで戸惑われているかと思います。<br>
+          どんな不安でも、まずはお電話ください。<br>
+          葬儀ディレクター1級保有スタッフが<br>丁寧にご対応いたします。
+        </p>
+
+        <div class="flex flex-wrap gap-2.5 mb-7">
+          <div class="bg-white border border-pink-mid rounded-lg px-3.5 py-2 text-center shadow-sm">
+            <strong class="block font-serif text-xl text-rose font-semibold">150,000件</strong>
+            <span class="block text-xs text-text-light tracking-wide">累計施行数</span>
+          </div>
+          <div class="bg-white border border-pink-mid rounded-lg px-3.5 py-2 text-center shadow-sm">
+            <strong class="block font-serif text-xl text-rose font-semibold">95%</strong>
+            <span class="block text-xs text-text-light tracking-wide">お客様満足度</span>
+          </div>
+          <div class="bg-white border border-pink-mid rounded-lg px-3.5 py-2 text-center shadow-sm">
+            <strong class="block font-serif text-xl text-rose font-semibold">当日中</strong>
+            <span class="block text-xs text-text-light tracking-wide">ご返骨可能</span>
+          </div>
         </div>
-        <div class="text-center mb-1.5">
-          <span class="inline-block bg-rose text-white text-xs px-2 py-0.5 rounded mr-1.5 tracking-wider align-middle">相談無料</span>
-          <a href="tel:0800-3338617" class="cv-tel font-serif text-3xl font-semibold text-deep-bark tracking-wide hover:text-pink transition-colors align-middle">
-            0800-333-8617
+
+        <div class="bg-gradient-to-br from-pink-light to-white border border-pink-mid rounded-xl px-5 py-4 shadow-sm">
+          <small class="block text-sm text-text-light mb-1">葬儀ディレクター1級保有者在籍！火葬は100%自社対応だから</small>
+          <div class="font-serif text-4xl text-rose font-semibold tracking-tight">
+            税込<sup class="text-lg">¥</sup>6,600<small class="text-lg">〜</small>
+          </div>
+          <div class="text-sm text-text-sub mt-1">適正価格 ＆ 迅速対応 ／ 出張費込み</div>
+        </div>
+      </div>
+
+      <div class="fade-up-delay">
+        <div class="bg-white border-2 border-pink rounded-xl p-7 shadow-[0_8px_32px_rgba(244,167,181,0.2)]">
+          <div class="text-sm tracking-wider text-pink font-semibold text-center mb-3">
+            🐾 ペットのお葬式の事ならなんでもご相談ください
+          </div>
+          <div class="text-center mb-2">
+            <span class="inline-block bg-rose text-white text-xs px-2.5 py-1 rounded mr-2 tracking-wider align-middle">相談無料</span>
+            <a href="tel:0800-3338617" class="cv-tel font-serif text-3xl font-semibold text-deep-bark tracking-wide hover:text-pink transition-colors align-middle">
+              0800-333-8617
+            </a>
+          </div>
+          <div class="text-center text-sm text-text-light mb-5">
+            <strong class="text-pink font-semibold">24時間365日いつでもOK</strong><br>
+            どんな不安にも専門スタッフが懇切丁寧に対応
+          </div>
+          <a href="tel:0800-3338617" class="cv-tel btn-gradient block w-full text-white text-center py-4 rounded-lg text-base font-semibold tracking-wider mb-2.5 transition-all duration-300 no-underline shadow-md">
+            📞 今すぐ電話する（無料）
           </a>
-        </div>
-        <div class="text-center text-xs text-text-light mb-5">
-          <strong class="text-pink font-semibold">24時間365日いつでもOK</strong><br>
-          どんな不安にも専門スタッフが懇切丁寧に対応
-        </div>
-        <a href="tel:0800-3338617"
-           class="cv-tel btn-gradient block w-full text-white text-center py-4 rounded-lg text-sm font-semibold
-                  tracking-wider mb-2.5 transition-all duration-300 no-underline shadow-md">
-          📞 今すぐ電話する（無料）
-        </a>
-        <a href="#contact"
-           class="block w-full bg-sage-light text-deep-bark text-center py-3.5 rounded-lg text-sm font-medium
-                  tracking-wider border border-sage hover:bg-green-100 transition-colors no-underline">
-          ✉ メールで相談する（無料）
-        </a>
-        <div class="text-center text-[0.65rem] text-text-light mt-2.5">
-          最短で当日対応 ／ お伺いから1時間前後でご返骨
+          <div class="text-center text-sm text-text-light mt-2.5">
+            最短で当日対応 ／ お伺いから1時間前後でご返骨
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- ========== エリア帯 ========== -->
   <div class="bg-gradient-to-r from-deep-bark to-[#3A2E22] text-white text-center py-5 px-6">
-    <p class="text-sm tracking-wider">
+    <p class="text-sm md:text-base tracking-wider">
       対応エリア：<strong class="text-pink-mid">福島県</strong>・<strong class="text-pink-mid">宮城県</strong>
        ／ 出張火葬・訪問火葬も承ります
     </p>
@@ -290,16 +254,12 @@
   <section class="bg-[#FDFAF7] py-20 px-6">
     <div class="max-w-4xl mx-auto">
       <div class="text-center reveal">
-        <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">
-          OUR MESSAGE
-        </span>
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">OUR MESSAGE</span>
         <p class="font-serif text-2xl md:text-3xl text-deep-bark leading-loose mt-8 mb-5 font-normal">
-          たくさんの癒しと<br>
-          かけがえのない時間を<br>
-          <em class="not-italic text-rose">本当に、本当に、ありがとう</em><br>
-          ずっと忘れないよ
+          たくさんの癒しと<br>かけがえのない時間を<br>
+          <em class="not-italic text-rose">本当に、本当に、ありがとう</em><br>ずっと忘れないよ
         </p>
-        <p class="text-sm text-text-sub mx-auto max-w-lg leading-loose">
+        <p class="text-readable text-text-sub mx-auto max-w-xl">
           ペットメモリアル つむぎでは葬儀でペットちゃんとのお別れをお手伝いします。<br>
           ご家族様の気持ちに寄り添い、心を込めてお別れのお手伝いをしています。<br>
           急死してしまった場合の相談も承っております。
@@ -308,762 +268,656 @@
 
       <!-- 対応ペット -->
       <div class="reveal mt-10">
-        <div class="flex justify-center flex-wrap gap-5">
+        <div class="flex justify-center flex-wrap gap-6">
           <div class="flex flex-col items-center gap-2">
-            <img src="img/hamster.jpeg" alt="ハムスター"
-                 class="w-18 h-18 rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform"
-                 style="width:72px;height:72px;">
-            <span class="text-xs text-text-sub tracking-wide">ハムスター</span>
+            <img src="img/hamster.jpeg" alt="ハムスター" class="rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform" style="width:80px;height:80px;">
+            <span class="text-sm text-text-sub tracking-wide">ハムスター</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <img src="img/rabbit.jpeg" alt="うさぎ"
-                 class="w-18 h-18 rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform"
-                 style="width:72px;height:72px;">
-            <span class="text-xs text-text-sub tracking-wide">うさぎ</span>
+            <img src="img/rabbit.jpeg" alt="うさぎ" class="rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform" style="width:80px;height:80px;">
+            <span class="text-sm text-text-sub tracking-wide">うさぎ</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <img src="img/bird.jpeg" alt="鳥"
-                 class="w-18 h-18 rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform"
-                 style="width:72px;height:72px;">
-            <span class="text-xs text-text-sub tracking-wide">鳥</span>
+            <img src="img/bird.jpeg" alt="鳥" class="rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform" style="width:80px;height:80px;">
+            <span class="text-sm text-text-sub tracking-wide">鳥</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <img src="img/hedgehog.jpeg" alt="ハリネズミ"
-                 class="w-18 h-18 rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform"
-                 style="width:72px;height:72px;">
-            <span class="text-xs text-text-sub tracking-wide">ハリネズミ</span>
+            <img src="img/hedgehog.jpeg" alt="ハリネズミ" class="rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform" style="width:80px;height:80px;">
+            <span class="text-sm text-text-sub tracking-wide">ハリネズミ</span>
           </div>
           <div class="flex flex-col items-center gap-2">
-            <img src="img/ferret.jpeg" alt="フェレット"
-                 class="w-18 h-18 rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform"
-                 style="width:72px;height:72px;">
-            <span class="text-xs text-text-sub tracking-wide">フェレット</span>
+            <img src="img/ferret.jpeg" alt="フェレット" class="rounded-full border-2 border-pink-mid object-cover hover:scale-105 transition-transform" style="width:80px;height:80px;">
+            <span class="text-sm text-text-sub tracking-wide">フェレット</span>
           </div>
         </div>
-        <p class="text-center text-xs text-text-light mt-5">記載がないペットちゃんでもご相談ください</p>
+        <p class="text-center text-sm text-text-light mt-5">記載がないペットちゃんでもご相談ください</p>
       </div>
     </div>
   </section>
 
   <!-- ========== 選ばれる理由 ========== -->
-<section class="bg-pink-light py-20 px-6">
+  <section class="bg-pink-light py-20 px-6">
     <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-20 reveal">
-        <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">
-          WHY CHOOSE US
-        </span>
-        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">
-          つむぎが選ばれる理由
-        </h2>
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">WHY CHOOSE US</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">つむぎが選ばれる理由</h2>
       </div>
-      
-      <div class="flex flex-wrap justify-center gap-6 mt-10">
-        <div class="reason-card-top relative bg-white rounded-xl p-8 border border-pink-mid
-                    hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(244,167,181,0.2)] transition-all duration-300 overflow-hidden w-full md:w-[calc(33.333%-1.5rem)]">
-          <div class="text-[0.62rem] tracking-[0.2em] text-pink font-semibold mb-2">POINT 1</div>
-          <div class="font-serif text-base text-deep-bark font-semibold mb-2.5">経験と実績があります</div>
-          <img src="img/point-11.jpeg" alt="ポイント１">
-          <p class="text-sm text-text-sub leading-loose">累計施行数150,000件を超える経験と実績で、あらゆるお客様のニーズにお応えし、10年後、20年後も心に残るお別れのお手伝いをさせていただきます。</p>
+      <div class="reason-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="reason-card-top relative bg-white rounded-xl p-8 border border-pink-mid hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(244,167,181,0.2)] transition-all duration-300 overflow-hidden">
+          <div class="text-xs tracking-[0.2em] text-pink font-semibold mb-2">POINT 1</div>
+          <div class="font-serif text-lg text-deep-bark font-semibold mb-3">経験と実績があります</div>
+          <img src="img/point-11.jpeg" alt="ポイント１" class="w-full rounded-lg mb-4">
+          <p class="text-readable text-text-sub">累計施行数150,000件を超える経験と実績で、あらゆるお客様のニーズにお応えし、10年後、20年後も心に残るお別れのお手伝いをさせていただきます。</p>
         </div>
-        <div class="reason-card-top relative bg-white rounded-xl p-8 border border-pink-mid
-                    hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(244,167,181,0.2)] transition-all duration-300 overflow-hidden w-full md:w-[calc(33.333%-1.5rem)]">
-          <div class="text-[0.62rem] tracking-[0.2em] text-pink font-semibold mb-2">POINT 2</div>
-          <div class="font-serif text-base text-deep-bark font-semibold mb-2.5">自社対応100%</div>
-            <img src="img/point-21.jpeg" alt="ポイント２">
-          <p class="text-sm text-text-sub leading-loose">お客様のご都合・ご要望に応じて各種プランをご用意。各プランはそれぞれ100%自社施行なので、業界適正価格でのご提案が可能です。</p>
+        <div class="reason-card-top relative bg-white rounded-xl p-8 border border-pink-mid hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(244,167,181,0.2)] transition-all duration-300 overflow-hidden">
+          <div class="text-xs tracking-[0.2em] text-pink font-semibold mb-2">POINT 2</div>
+          <div class="font-serif text-lg text-deep-bark font-semibold mb-3">自社対応100%</div>
+          <img src="img/point-21.jpeg" alt="ポイント２" class="w-full rounded-lg mb-4">
+          <p class="text-readable text-text-sub">お客様のご都合・ご要望に応じて各種プランをご用意。各プランはそれぞれ100%自社施行なので、業界適正価格でのご提案が可能です。</p>
         </div>
-        <div class="reason-card-top relative bg-white rounded-xl p-8 border border-pink-mid
-                    hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(244,167,181,0.2)] transition-all duration-300 overflow-hidden w-full md:w-[calc(33.333%-1.5rem)]">
-          <div class="text-[0.62rem] tracking-[0.2em] text-pink font-semibold mb-2">POINT 3</div>
-          <div class="font-serif text-base text-deep-bark font-semibold mb-2.5">ご供養までサポート</div>
-          <img src="img/point-31.jpeg" alt="ポイント３">
-          <p class="text-sm text-text-sub leading-loose">火葬だけでなく、ご納骨・海洋散骨など、ご供養までお手伝いが可能です。メモリアルグッズの販売も行っており、ご自宅でのご供養のご相談も承ります。</p>
+        <div class="reason-card-top relative bg-white rounded-xl p-8 border border-pink-mid hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(244,167,181,0.2)] transition-all duration-300 overflow-hidden">
+          <div class="text-xs tracking-[0.2em] text-pink font-semibold mb-2">POINT 3</div>
+          <div class="font-serif text-lg text-deep-bark font-semibold mb-3">ご供養までサポート</div>
+          <img src="img/point-31.jpeg" alt="ポイント３" class="w-full rounded-lg mb-4">
+          <p class="text-readable text-text-sub">火葬だけでなく、ご納骨・海洋散骨など、ご供養までお手伝いが可能です。メモリアルグッズの販売も行っており、ご自宅でのご供養のご相談も承ります。</p>
         </div>
       </div>
     </div>
   </section>
 
- 
-<section class="bg-cream py-20 px-6">
+  <!-- ========== 料金プラン ========== -->
+  <section class="bg-cream py-20 px-6">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16 reveal">
-        <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">OUR PLANS</span>
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">OUR PLANS</span>
         <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">料金プラン</h2>
-        <p class="text-sm text-text-sub mt-4">ご希望に合わせて3つのプランからお選びいただけます。<br class="hidden md:block">追加料金は一切かかりませんのでご安心ください。</p>
+        <p class="text-readable text-text-sub mt-4">ご希望に合わせて3つのプランからお選びいただけます。<br class="hidden md:block">追加料金は一切かかりませんのでご安心ください。</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="plan-grid grid grid-cols-1 md:grid-cols-3 gap-8">
 
+        <!-- プラン1 -->
         <div class="reveal group bg-white border border-sand rounded-xl overflow-hidden hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
           <div class="bg-pink-light border-b border-pink-mid px-6 py-5 text-center">
-            <div class="font-serif text-base text-deep-bark font-semibold">合同火葬プラン</div>
+            <div class="font-serif text-lg text-deep-bark font-semibold">合同火葬プラン</div>
           </div>
           <div class="px-6 py-6">
             <div class="overflow-hidden rounded-lg mb-5 aspect-[16/10]">
               <img src="img/plan-image1.jpeg" alt="合同火葬のイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="font-serif text-3xl text-rose font-semibold text-center mb-1">¥6,600〜</div>
-            <div class="text-xs text-text-light text-center mb-5">税込 ／ 費用を抑えたい方に</div>
-            <div class="flex justify-center gap-1 flex-wrap mb-5">
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">お迎え</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">合同火葬</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">合祀</span>
+            <div class="text-sm text-text-light text-center mb-5">税込 ／ 費用を抑えたい方に</div>
+            <div class="flex justify-center gap-1.5 flex-wrap mb-5">
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">お迎え</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">合同火葬</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">合祀</span>
             </div>
-            <ul class="border-t border-sand pt-4 space-y-2">
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">専用車でお迎え</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">合同火葬・提携寺院へ合祀</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">ご返骨なし</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">お別れの時間あり</li>
+            <ul class="border-t border-sand pt-4 space-y-2.5">
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">専用車でお迎え</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">合同火葬・提携寺院へ合祀</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">ご返骨なし</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">お別れの時間あり</li>
             </ul>
           </div>
         </div>
 
-        <div class="reveal group bg-white border-2 border-pink rounded-xl overflow-hidden hover:-translate-y-2
-                    shadow-[0_4px_20px_rgba(244,167,181,0.2)] hover:shadow-[0_20px_45px_rgba(244,167,181,0.3)] transition-all duration-300 relative">
+        <!-- プラン2 (推奨) -->
+        <div class="reveal group bg-white border-2 border-pink rounded-xl overflow-hidden hover:-translate-y-2 shadow-[0_4px_20px_rgba(244,167,181,0.2)] hover:shadow-[0_20px_45px_rgba(244,167,181,0.3)] transition-all duration-300 relative">
           <div class="bg-pink px-6 py-5 text-center">
-            <span class="inline-block bg-white/20 text-white text-[0.6rem] px-3 py-0.5 rounded-full tracking-wider mb-1 uppercase font-bold">Recommended</span>
-            <div class="font-serif text-base text-white font-semibold">個別火葬プラン</div>
+            <span class="inline-block bg-white/20 text-white text-xs px-3 py-0.5 rounded-full tracking-wider mb-1 uppercase font-bold">Recommended</span>
+            <div class="font-serif text-lg text-white font-semibold">個別火葬プラン</div>
           </div>
           <div class="px-6 py-6">
             <div class="overflow-hidden rounded-lg mb-5 aspect-[16/10]">
               <img src="img/plan-image2.jpeg" alt="個別火葬のイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="font-serif text-3xl text-rose font-semibold text-center mb-1">¥15,400〜</div>
-            <div class="text-xs text-text-light text-center mb-5">税込 ／ お骨をそばに置きたい方に</div>
-            <div class="flex justify-center gap-1 flex-wrap mb-5">
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">お迎え</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">個別火葬</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">ご返骨</span>
+            <div class="text-sm text-text-light text-center mb-5">税込 ／ お骨をそばに置きたい方に</div>
+            <div class="flex justify-center gap-1.5 flex-wrap mb-5">
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">お迎え</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">個別火葬</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">ご返骨</span>
             </div>
-            <ul class="border-t border-sand pt-4 space-y-2">
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold font-medium">専用車でお迎え</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">個別火葬</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">骨壷・骨袋付きでご返骨</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">紙製骨壷変更無料</li>
+            <ul class="border-t border-sand pt-4 space-y-2.5">
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">専用車でお迎え</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">個別火葬</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">骨壷・骨袋付きでご返骨</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">紙製骨壷変更無料</li>
             </ul>
           </div>
         </div>
 
+        <!-- プラン3 -->
         <div class="reveal group bg-white border border-sand rounded-xl overflow-hidden hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
           <div class="bg-pink-light border-b border-pink-mid px-6 py-5 text-center">
-            <div class="font-serif text-base text-deep-bark font-semibold">立会い個別火葬プラン</div>
+            <div class="font-serif text-lg text-deep-bark font-semibold">立会い個別火葬プラン</div>
           </div>
           <div class="px-6 py-6">
             <div class="overflow-hidden rounded-lg mb-5 aspect-[16/10]">
               <img src="img/plan-image3.jpeg" alt="立会い火葬のイメージ" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="font-serif text-3xl text-rose font-semibold text-center mb-1">¥17,600〜</div>
-            <div class="text-xs text-text-light text-center mb-5">税込 ／ 家族でお骨上げをしたい方に</div>
-            <div class="flex justify-center gap-1 flex-wrap mb-5">
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">お迎え</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">個別火葬</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">お骨上げ</span>
-              <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">ご返骨</span>
+            <div class="text-sm text-text-light text-center mb-5">税込 ／ 家族でお骨上げをしたい方に</div>
+            <div class="flex justify-center gap-1.5 flex-wrap mb-5">
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">お迎え</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">個別火葬</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">お骨上げ</span>
+              <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">ご返骨</span>
             </div>
-            <ul class="border-t border-sand pt-4 space-y-2">
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">専用車でお迎え</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">個別火葬・ご家族でお骨上げ</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">骨壷・骨袋付きでご返骨</li>
-              <li class="text-[0.75rem] text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">紙製骨壷変更無料</li>
+            <ul class="border-t border-sand pt-4 space-y-2.5">
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">専用車でお迎え</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">個別火葬・ご家族でお骨上げ</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">骨壷・骨袋付きでご返骨</li>
+              <li class="text-readable-sm text-text-sub pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-sage before:font-bold">紙製骨壷変更無料</li>
             </ul>
           </div>
         </div>
       </div>
 
-            <div class="mt-12 p-6 bg-white/50 border border-sand rounded-2xl">
+      <div class="mt-12 p-6 bg-white/50 border border-sand rounded-2xl">
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
-          <p class="text-[0.72rem] text-text-light leading-relaxed">
-            各種クレジットカード（JCB / VISA / Mastercard / Diners / NICOS）<br class="sm:hidden">および現金がご利用いただけます。
+          <p class="text-sm text-text-light leading-relaxed">
+            各種クレジットカード（JCB / VISA / Mastercard / Diners / NICOS）および現金がご利用いただけます。
           </p>
-          <img src="img/creditcard.jpeg" alt="利用可能カード" class="h-7 w-auto object-contain transition-transform duration-300 hover:scale-105">
+          <img src="img/creditcard.jpeg" alt="利用可能カード" class="h-8 w-auto object-contain hover:scale-105 transition-transform">
         </div>
       </div>
-
     </div>
   </section>
 
-   <!-- ========== 他社比較 ========== -->
+  <!-- ========== 他社比較 ========== -->
   <section class="bg-white py-20 px-6">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12 reveal">
-        <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">COMPARISON</span>
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">COMPARISON</span>
         <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">他社との比較</h2>
-        <p class="text-sm text-text-sub mt-3">火葬は100%自社対応だから適正価格でご提供できます。</p>
+        <p class="text-readable text-text-sub mt-3">火葬は100%自社対応だから適正価格でご提供できます。</p>
       </div>
-      <div class="reveal overflow-x-auto">
-        <table class="w-full border-collapse rounded-xl overflow-hidden shadow-md text-sm">
+      <div class="reveal overflow-x-auto -mx-2">
+        <table class="compare-table w-full border-collapse rounded-xl overflow-hidden shadow-md min-w-[480px]">
           <thead>
             <tr>
-              <th class="bg-sand text-text-sub p-4 text-left text-xs tracking-wide"></th>
-              <th class="compare-head-ours p-4 text-xs tracking-wide">つむぎ</th>
-              <th class="bg-sand text-text-sub p-4 text-xs tracking-wide">A社</th>
-              <th class="bg-sand text-text-sub p-4 text-xs tracking-wide">B社</th>
+              <th class="bg-sand text-text-sub p-4 text-left text-sm tracking-wide w-1/4"></th>
+              <th class="compare-head-ours p-4 text-sm tracking-wide">つむぎ</th>
+              <th class="bg-sand text-text-sub p-4 text-sm tracking-wide">A社</th>
+              <th class="bg-sand text-text-sub p-4 text-sm tracking-wide">B社</th>
             </tr>
           </thead>
           <tbody>
             <tr class="border-b border-sand">
-              <td class="bg-cream text-text-sub text-xs p-4 text-left pl-4">最低価格</td>
-              <td class="compare-ours text-center p-4">税込 6,600円〜</td>
-              <td class="text-center p-4 text-text-sub">税込 8,545円〜</td>
-              <td class="text-center p-4 text-text-sub">税込 10,000円〜</td>
+              <td class="bg-cream text-text-sub text-sm p-4 text-left font-medium">最低価格</td>
+              <td class="compare-ours text-center p-4 text-sm">税込 6,600円〜</td>
+              <td class="text-center p-4 text-sm text-text-sub">税込 8,545円〜</td>
+              <td class="text-center p-4 text-sm text-text-sub">税込 10,000円〜</td>
             </tr>
             <tr class="border-b border-sand">
-              <td class="bg-cream text-text-sub text-xs p-4 text-left pl-4">サービス内容</td>
-              <td class="compare-ours text-center p-4">火葬代＋出張費込み</td>
-              <td class="text-center p-4 text-text-sub">火葬代＋出張費込み</td>
-              <td class="text-center p-4 text-text-sub">火葬代のみ</td>
+              <td class="bg-cream text-text-sub text-sm p-4 text-left font-medium">サービス内容</td>
+              <td class="compare-ours text-center p-4 text-sm">火葬代＋出張費込み</td>
+              <td class="text-center p-4 text-sm text-text-sub">火葬代＋出張費込み</td>
+              <td class="text-center p-4 text-sm text-text-sub">火葬代のみ</td>
             </tr>
             <tr class="border-b border-sand">
-              <td class="bg-cream text-text-sub text-xs p-4 text-left pl-4">受付時間</td>
-              <td class="compare-ours text-center p-4">24時間365日</td>
-              <td class="text-center p-4 text-text-sub">24時間365日</td>
-              <td class="text-center p-4 text-text-sub">24時間不定休</td>
+              <td class="bg-cream text-text-sub text-sm p-4 text-left font-medium">受付時間</td>
+              <td class="compare-ours text-center p-4 text-sm">24時間365日</td>
+              <td class="text-center p-4 text-sm text-text-sub">24時間365日</td>
+              <td class="text-center p-4 text-sm text-text-sub">24時間不定休</td>
             </tr>
             <tr>
-              <td class="bg-cream text-text-sub text-xs p-4 text-left pl-4">自社施行</td>
-              <td class="compare-ours text-center p-4">100%自社施行</td>
-              <td class="text-center p-4 text-text-sub">100%外部委託</td>
-              <td class="text-center p-4 text-text-sub">一部外部委託</td>
+              <td class="bg-cream text-text-sub text-sm p-4 text-left font-medium">自社施行</td>
+              <td class="compare-ours text-center p-4 text-sm">100%自社施行</td>
+              <td class="text-center p-4 text-sm text-text-sub">100%外部委託</td>
+              <td class="text-center p-4 text-sm text-text-sub">一部外部委託</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="text-[0.7rem] text-text-light mt-3 text-center">※火葬費用とは別に、納骨費が霊園により3,300円〜6,600円（税込）かかります。</p>
+      <p class="text-sm text-text-light mt-3 text-center">※火葬費用とは別に、納骨費が霊園により3,300円〜6,600円（税込）かかります。</p>
     </div>
   </section>
 
-
-  <!-- ========== 流れ ========== -->
-<section class="bg-[#FDFAF7] py-20 px-6">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-16 reveal">
-      <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">HOW IT WORKS</span>
-      <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">ご葬儀（火葬）の流れ</h2>
-      <p class="text-sm text-text-sub mt-4">立会い個別火葬プランの場合</p>
-    </div>
-
-    <div class="max-w-4xl mx-auto">
-      <div class="reveal grid grid-cols-[48px_1fr] md:grid-cols-[64px_1fr] gap-4 md:gap-6 pb-12">
-        <div class="flex flex-col items-center">
-          <div class="text-white font-serif text-base font-semibold flex items-center justify-center flex-shrink-0 z-10"></div>
-          <div class="w-px flex-1 bg-pink-mid/40 my-2"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="w-full md:w-2/5 flex-shrink-0">
-            <img src="img/step1.jpeg" alt="お電話でご連絡" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
-          </div>
-          <div class="flex-1">
-            <h3 class="font-serif text-lg text-deep-bark font-semibold mb-3">お電話でご連絡</h3>
-            <p class="text-[0.9rem] text-text-sub leading-relaxed mb-3">
-              まずはペットメモリアル つむぎ（0800-333-8617）へ。ご家族様のご都合の良い日時に、ご自宅またはご指定の場所へお伺いします。
-            </p>
-            <div class="bg-white/60 border border-pink-mid/30 inline-block px-3 py-1.5 rounded-lg">
-              <span class="text-rose text-[0.7rem] font-medium tracking-wider">目安：夏：当日〜2日以内 ／ 冬：翌日〜3日以内</span>
-            </div>
-          </div>
-        </div>
+  <!-- ========== ご葬儀の流れ ========== -->
+  <section class="bg-[#FDFAF7] py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">HOW IT WORKS</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">ご葬儀（火葬）の流れ</h2>
+        <p class="text-sm text-text-sub mt-4">立会い個別火葬プランの場合</p>
       </div>
 
-      <div class="reveal grid grid-cols-[48px_1fr] md:grid-cols-[64px_1fr] gap-4 md:gap-6 pb-12">
-        <div class="flex flex-col items-center">
-          <div class="text-white font-serif text-base font-semibold flex items-center justify-center flex-shrink-0 z-10"></div>
-          <div class="w-px flex-1 bg-pink-mid/40 my-2"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="w-full md:w-2/5 flex-shrink-0">
-            <img src="img/step2.jpeg" alt="スタッフがお迎え" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
-          </div>
-          <div class="flex-1">
-            <h3 class="font-serif text-lg text-deep-bark font-semibold mb-3">スタッフがお迎え・ご安置</h3>
-            <p class="text-[0.9rem] text-text-sub leading-relaxed mb-3">
-              お迎えにあがったスタッフがご家族様と、ご安置されているペットちゃんを専用車までお運びします。
-            </p>
-            <div class="bg-pink-light/50 p-4 rounded-xl border-l-2 border-pink-mid">
-              <p class="text-[0.75rem] text-text-sub leading-relaxed italic">
-                <span class="font-bold text-pink block mb-1">● ご安置のアドバイス</span>
-                お身体を楽な姿勢にしてあげてください。直射日光の当たらない、できるだけ涼しい場所を選んであげましょう。
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="max-w-4xl mx-auto space-y-12">
 
-      <div class="reveal grid grid-cols-[48px_1fr] md:grid-cols-[64px_1fr] gap-4 md:gap-6 pb-12">
-        <div class="flex flex-col items-center">
-          <div class="text-white font-serif text-base font-semibold flex items-center justify-center flex-shrink-0 z-10"></div>
-          <div class="w-px flex-1 bg-pink-mid/40 my-2"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="w-full md:w-2/5 flex-shrink-0">
-            <img src="img/step3.jpeg" alt="最後のお別れ" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
-          </div>
-          <div class="flex-1">
-            <h3 class="font-serif text-lg text-deep-bark font-semibold mb-3">最後のお別れ</h3>
-            <p class="text-[0.9rem] text-text-sub leading-relaxed">
-              ペットちゃんとの最後のお別れをしていただきます。生前好きだったお菓子やおもちゃ（火葬可能なもの）をお入れできます。
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="reveal grid grid-cols-[48px_1fr] md:grid-cols-[64px_1fr] gap-4 md:gap-6 pb-12">
-        <div class="flex flex-col items-center">
-          <div class=" text-white font-serif text-base font-semibold flex items-center justify-center flex-shrink-0 z-10"></div>
-          <div class="w-px flex-1 bg-pink-mid/40 my-2"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="w-full md:w-2/5 flex-shrink-0">
-            <img src="img/step4.jpeg" alt="ご火葬" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
-          </div>
-          <div class="flex-1">
-            <h3 class="font-serif text-lg text-deep-bark font-semibold mb-3">ご火葬</h3>
-            <p class="text-[0.9rem] text-text-sub leading-relaxed mb-4">
-              ご家族様と合掌後、ご火葬いたします。
-            </p>
-            <div class="bg-white/80 border border-sand p-4 rounded-xl">
-              <p class="text-[0.7rem] font-bold text-deep-bark mb-2">ご火葬時間の目安</p>
-              <div class="flex flex-wrap gap-2 mb-2">
-                <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">1〜10kg：30〜40分</span>
-                <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">10〜20kg：40〜60分</span>
-                <span class="bg-sage-light text-deep-bark text-[0.65rem] px-2 py-1 rounded">20〜40kg：約60〜90分</span>
+        <!-- Step 1 -->
+        <div class="reveal pb-12 border-b border-pink-mid/30">
+          <div class="step-inner flex flex-col md:flex-row gap-6 items-start">
+            <div class="step-img-wrap w-full md:w-2/5 flex-shrink-0">
+              <div class="relative">
+                <img src="img/step1.jpeg" alt="お電話でご連絡" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
               </div>
-              <p class="text-[0.65rem] text-text-light italic">※ペットちゃんの種類や状態によって前後する場合がございます。</p>
+            </div>
+            <div class="flex-1 pt-2">
+              <h3 class="font-serif text-xl text-deep-bark font-semibold mb-3">お電話でご連絡</h3>
+              <p class="text-readable text-text-sub mb-4">まずはペットメモリアル つむぎ（0800-333-8617）へ。ご家族様のご都合の良い日時に、ご自宅またはご指定の場所へお伺いします。</p>
+              <div class="bg-white/60 border border-pink-mid/30 inline-block px-4 py-2 rounded-lg">
+                <span class="text-rose text-sm font-medium tracking-wider">目安：夏：当日〜2日以内 ／ 冬：翌日〜3日以内</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="reveal grid grid-cols-[48px_1fr] md:grid-cols-[64px_1fr] gap-4 md:gap-6 pb-12">
-        <div class="flex flex-col items-center">
-          <div class=" text-white font-serif text-base font-semibold flex items-center justify-center flex-shrink-0 z-10"></div>
-          <div class="w-px flex-1 bg-pink-mid/40 my-2"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="w-full md:w-2/5 flex-shrink-0">
-            <img src="img/step5.jpeg" alt="お骨上げ" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+        <!-- Step 2 -->
+        <div class="reveal pb-12 border-b border-pink-mid/30">
+          <div class="step-inner flex flex-col md:flex-row gap-6 items-start">
+            <div class="step-img-wrap w-full md:w-2/5 flex-shrink-0">
+              <div class="relative">
+                <img src="img/step2.jpeg" alt="スタッフがお迎え" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+              </div>
+            </div>
+            <div class="flex-1 pt-2">
+              <h3 class="font-serif text-xl text-deep-bark font-semibold mb-3">スタッフがお迎え・ご安置</h3>
+              <p class="text-readable text-text-sub mb-4">お迎えにあがったスタッフがご家族様と、ご安置されているペットちゃんを専用車までお運びします。</p>
+              <div class="bg-pink-light/50 p-4 rounded-xl border-l-2 border-pink-mid">
+                <p class="text-sm text-text-sub leading-relaxed italic">
+                  <span class="font-bold text-pink block mb-1">● ご安置のアドバイス</span>
+                  お身体を楽な姿勢にしてあげてください。直射日光の当たらない、できるだけ涼しい場所を選んであげましょう。
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="flex-1">
-            <h3 class="font-serif text-lg text-deep-bark font-semibold mb-3">お骨上げ・ご収骨</h3>
-            <p class="text-[0.9rem] text-text-sub leading-relaxed mb-3">
-              ご火葬後、ご家族様にご収骨をしていただきます。お骨の一部を遺骨カプセル等に収めることも可能です。
-            </p>
-            <p class="text-[0.75rem] text-text-light leading-relaxed">
-              ● お守りとして遺骨カプセルを皆様でお持ちになる方も多くいらっしゃいます。ご希望の場合はスタッフへお申し付けください。（※カプセルは別途費用）
-            </p>
-          </div>
         </div>
-      </div>
 
-      <div class="reveal grid grid-cols-[48px_1fr] md:grid-cols-[64px_1fr] gap-4 md:gap-6">
-        <div class="flex flex-col items-center">
-          <div class=" text-white font-serif text-base font-semibold flex items-center justify-center flex-shrink-0 z-10"></div>
-        </div>
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <div class="w-full md:w-2/5 flex-shrink-0">
-            <img src="img/step6.jpeg" alt="ご返骨" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+        <!-- Step 3 -->
+        <div class="reveal pb-12 border-b border-pink-mid/30">
+          <div class="step-inner flex flex-col md:flex-row gap-6 items-start">
+            <div class="step-img-wrap w-full md:w-2/5 flex-shrink-0">
+              <div class="relative">
+                <img src="img/step3.jpeg" alt="最後のお別れ" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+              </div>
+            </div>
+            <div class="flex-1 pt-2">
+              <h3 class="font-serif text-xl text-deep-bark font-semibold mb-3">最後のお別れ</h3>
+              <p class="text-readable text-text-sub">ペットちゃんとの最後のお別れをしていただきます。生前好きだったお菓子やおもちゃ（火葬可能なもの）をお入れできます。</p>
+            </div>
           </div>
-          <div class="flex-1">
-            <h3 class="font-serif text-lg text-deep-bark font-semibold mb-3">ご返骨・アフターサポート</h3>
-            <p class="text-[0.9rem] text-text-sub leading-relaxed">
-              お骨を骨壷に収め、ご家族様へご返骨いたします。ご火葬後もペットちゃんの温もりを感じていただける紙製骨壷もございます（数量限定・無料変更）。
-            </p>
-          </div>
         </div>
-      </div>
 
+        <!-- Step 4 -->
+        <div class="reveal pb-12 border-b border-pink-mid/30">
+          <div class="step-inner flex flex-col md:flex-row gap-6 items-start">
+            <div class="step-img-wrap w-full md:w-2/5 flex-shrink-0">
+              <div class="relative">
+                <img src="img/step4.jpeg" alt="ご火葬" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+              </div>
+            </div>
+            <div class="flex-1 pt-2">
+              <h3 class="font-serif text-xl text-deep-bark font-semibold mb-3">ご火葬</h3>
+              <p class="text-readable text-text-sub mb-4">ご家族様と合掌後、ご火葬いたします。</p>
+              <div class="bg-white/80 border border-sand p-4 rounded-xl">
+                <p class="text-sm font-bold text-deep-bark mb-2">ご火葬時間の目安</p>
+                <div class="flex flex-wrap gap-2 mb-2">
+                  <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">1〜10kg：30〜40分</span>
+                  <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">10〜20kg：40〜60分</span>
+                  <span class="bg-sage-light text-deep-bark text-sm px-2.5 py-1 rounded">20〜40kg：60〜90分</span>
+                </div>
+                <p class="text-xs text-text-light italic">※ペットちゃんの種類や状態によって前後する場合がございます。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="reveal pb-12 border-b border-pink-mid/30">
+          <div class="step-inner flex flex-col md:flex-row gap-6 items-start">
+            <div class="step-img-wrap w-full md:w-2/5 flex-shrink-0">
+              <div class="relative">
+                <img src="img/step5.jpeg" alt="お骨上げ" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+              </div>
+            </div>
+            <div class="flex-1 pt-2">
+              <h3 class="font-serif text-xl text-deep-bark font-semibold mb-3">お骨上げ・ご収骨</h3>
+              <p class="text-readable text-text-sub mb-3">ご火葬後、ご家族様にご収骨をしていただきます。お骨の一部を遺骨カプセル等に収めることも可能です。</p>
+              <p class="text-sm text-text-light leading-relaxed">● お守りとして遺骨カプセルを皆様でお持ちになる方も多くいらっしゃいます。ご希望の場合はスタッフへお申し付けください。（※カプセルは別途費用）</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="reveal">
+          <div class="step-inner flex flex-col md:flex-row gap-6 items-start">
+            <div class="step-img-wrap w-full md:w-2/5 flex-shrink-0">
+              <div class="relative">
+                <img src="img/step6.jpeg" alt="ご返骨" class="w-full aspect-[4/3] object-cover rounded-xl shadow-sm">
+              </div>
+            </div>
+            <div class="flex-1 pt-2">
+              <h3 class="font-serif text-xl text-deep-bark font-semibold mb-3">ご返骨・アフターサポート</h3>
+              <p class="text-readable text-text-sub">お骨を骨壷に収め、ご家族様へご返骨いたします。ご火葬後もペットちゃんの温もりを感じていただける紙製骨壷もございます（数量限定・無料変更）。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- ========== 口コミ ========== -->
- <section class="bg-pink-light py-20 overflow-hidden">
-  <div class="max-w-4xl mx-auto px-6">
-    <div class="text-center mb-16 reveal">
-      <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium uppercase">Customer Voice</span>
-      <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">お客様の声</h2>
+  <section class="bg-pink-light py-20 overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium uppercase">Customer Voice</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">お客様の声</h2>
+      </div>
     </div>
-  </div>
 
-  <div class="relative">
-    <div class="animate-scroll gap-5 px-5">
-      
-      <div class="flex gap-5">
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">よく散歩にいった近くの公園で</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">希望の日にちに合わせて頂きました。好きだった食べ物やお花の用意をと教えて頂き持たせました。よく散歩に行った近くの公園で行いました。桜の花が満開でした。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">S様 ／ 東京都</div>
+    <div class="relative overflow-hidden">
+      <div class="animate-scroll gap-5 px-5">
+        <div class="flex gap-5">
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">よく散歩にいった近くの公園で</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">希望の日にちに合わせて頂きました。好きだった食べ物やお花の用意をと教えて頂き持たせました。よく散歩に行った近くの公園で行いました。桜の花が満開でした。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">S様 ／ 東京都</div>
+          </div>
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">自宅から見送る事ができて感謝</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">愛犬が亡くなり、出張で火葬してもらえるのは知っていたので探していました。到着から最後までとても丁寧な対応をしていただき、愛犬を無事に見送ることが出来ました。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">H様 ／ 大阪府</div>
+          </div>
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">真摯で丁寧な対応でした</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">真摯で丁寧に対応していただきました。遺骨についての説明はとても思いやりがあり有難かったです。安心してお任せできました。感謝しております。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">U様 ／ 神奈川県</div>
+          </div>
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">住んだ家から見送れました</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">説明も丁寧でとても感じの良い方でした。愛猫は我が家に来て15年、最期は住んだ家から旅立ってきっと喜んでいることと思います。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">R様 ／ 千葉県</div>
+          </div>
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">自宅での温かいお別れ</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">小さなハムスターでしたが、大きな子と同じようにとても丁寧に扱っていただけて救われた気持ちです。大好きだったひまわりの種をたくさん持たせてあげられました。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">Y様 ／ 東京都</div>
+          </div>
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">丁寧な説明と家族への配慮</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">15年連れ添った大型犬でしたが、専用車で自宅まで来ていただき安心しました。スタッフの方が思い出話を静かに聞いてくださり、穏やかに過ごせました。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">O様 ／ 宮城県</div>
+          </div>
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">供養の形に寄り添うサポート</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">希望の日時に柔軟に合わせていただき助かりました。遺骨カプセルに収める際も温かい言葉をかけてくださり、つむぎさんにお願いして本当に良かったです。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">N様 ／ 埼玉県</div>
+          </div>
         </div>
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">自宅から見送る事ができて感謝</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">愛犬が亡くなり、出張で火葬してもらえるのは知っていたので探していました。到着から最後までとても丁寧な対応をしていただき、愛犬を無事に見送ることが出来ました。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">H様 ／ 大阪府</div>
-        </div>
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">真摯で丁寧な対応でした</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">真摯で丁寧に対応していただきました。遺骨についての説明はとても思いやりがあり有難かったです。安心してお任せできました。感謝しております。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">U様 ／ 神奈川県</div>
-        </div>
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">住んだ家から見送れました</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">説明も丁寧でとても感じの良い方でした。愛猫は我が家に来て15年、最期は住んだ家から旅立ってきっと喜んでいることと思います。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">R様 ／ 千葉県</div>
-        </div>
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">自宅での温かいお別れ</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">小さなハムスターでしたが、大きな子と同じようにとても丁寧に扱っていただけて救われた気持ちです。大好きだったひまわりの種をたくさん持たせてあげられました。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">Y様 ／ 東京都</div>
-        </div>
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">丁寧な説明と家族への配慮</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">15年連れ添った大型犬でしたが、専用車で自宅まで来ていただき安心しました。スタッフの方が思い出話を静かに聞いてくださり、穏やかに過ごせました。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">O様 ／ 宮城県</div>
-        </div>
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">供養の形に寄り添うサポート</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">希望の日時に柔軟に合わせていただき助かりました。遺骨カプセルに収める際も温かい言葉をかけてくださり、つむぎさんにお願いして本当に良かったです。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">N様 ／ 埼玉県</div>
+        <!-- 複製（無限ループ用） -->
+        <div class="flex gap-5" aria-hidden="true">
+          <div class="w-[300px] md:w-[340px] relative bg-white rounded-xl p-7 border border-pink-mid flex-shrink-0 shadow-sm">
+            <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
+            <div class="font-serif text-base text-deep-bark font-semibold mb-3 relative z-10">よく散歩にいった近くの公園で</div>
+            <p class="text-readable-sm text-text-sub leading-loose mb-4">希望の日にちに合わせて頂きました。好きだった食べ物やお花の用意をと教えて頂き持たせました。よく散歩に行った近くの公園で行いました。桜の花が満開でした。</p>
+            <div class="text-sm text-text-light text-right border-t border-pink-light pt-3">S様 ／ 東京都</div>
+          </div>
         </div>
       </div>
-
-      <div class="flex gap-5" aria-hidden="true">
-        <div class="w-[300px] md:w-[350px] relative bg-white rounded-xl p-8 border border-pink-mid flex-shrink-0 shadow-sm">
-          <span class="absolute top-4 left-4 text-4xl text-pink-mid/30 leading-none font-serif">❝</span>
-          <div class="font-serif text-[0.95rem] text-deep-bark font-semibold mb-3 relative z-10">よく散歩にいった近くの公園で</div>
-          <p class="text-[0.8rem] text-text-sub leading-loose mb-4">希望の日にちに合わせて頂きました。好きだった食べ物やお花の用意をと教えて頂き持たせました。よく散歩に行った近くの公園で行いました。桜の花が満開でした。</p>
-          <div class="text-[0.7rem] text-text-light text-right border-t border-pink-light pt-3">S様 ／ 東京都</div>
-        </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="max-w-4xl mx-auto px-6">
-    <div class="reveal text-center mt-16">
-      <p class="font-serif text-2xl text-deep-bark leading-loose">
-        大切な家族の一員だから<br>
-        <span class="font-sans text-base text-text-sub block mt-2 font-normal">つむぎは最後のお別れのその時まで大切にします</span>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- イメージ動画 -->
-<section class="bg-cream py-16 px-6">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-10 reveal">
-      <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink-mid border-b border-pink-mid/40 pb-1 mb-3 font-medium uppercase">Movie</span>
-      <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">映像で見るご供養の流れ</h2>
     </div>
 
-    <div class="reveal shadow-xl rounded-2xl overflow-hidden bg-black aspect-video mb-6">
-      <iframe 
-        class="w-full h-full"
-        src="https://www.youtube.com/embed/Jvz_T-uGoWw?si=iDNLbZNNqrF6scMd" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>
-      </iframe>
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="reveal text-center mt-16">
+        <p class="font-serif text-2xl text-deep-bark leading-loose">
+          大切な家族の一員だから<br>
+          <span class="font-sans text-base text-text-sub block mt-2 font-normal">つむぎは最後のお別れのその時まで大切にします</span>
+        </p>
+      </div>
     </div>
+  </section>
 
-    <div class="reveal bg-white/60 border border-pink-light/50 rounded-lg p-5">
-      <p class="text-xs md:text-sm text-text-sub leading-loose">
-        <span class="text-pink-mid font-bold">※</span> この映像は「立ち合い個別火葬プラン」と「合同供養」の流れになります。<br>
-        <span class="text-pink-mid font-bold">※</span> 「合同火葬プラン」ではご返骨不可になります。また、「個別火葬プラン」はお客様によるお骨上げはありませんのでご注意ください。
-      </p>
+  <!-- ========== 映像 ========== -->
+  <!-- <section class="bg-cream py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10 reveal">
+        <span class="inline-block text-xs tracking-[0.25em] text-pink-mid border-b border-pink-mid/40 pb-1 mb-3 font-medium uppercase">Movie</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">映像で見るご供養の流れ</h2>
+      </div>
+      <div class="reveal shadow-xl rounded-2xl overflow-hidden bg-black aspect-video mb-6">
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/Jvz_T-uGoWw?si=iDNLbZNNqrF6scMd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="reveal bg-white/60 border border-pink-light/50 rounded-lg p-5">
+        <p class="text-sm text-text-sub leading-loose">
+          <span class="text-pink-mid font-bold">※</span> この映像は「立ち合い個別火葬プラン」と「合同供養」の流れになります。<br>
+          <span class="text-pink-mid font-bold">※</span> 「合同火葬プラン」ではご返骨不可になります。また、「個別火葬プラン」はお客様によるお骨上げはありませんのでご注意ください。
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section> -->
 
   <!-- ========== キャンペーン ========== -->
-<section class="bg-cream py-16 px-6 overflow-hidden">
-  <div class="max-w-4xl mx-auto">
-    
-    <div class="text-center mb-10">
-      <span class="text-pink-mid text-sm font-bold tracking-widest block mb-2">PRESENT</span>
-      <h2 class="font-serif text-2xl md:text-3xl text-deep-bark font-medium">つむぎからの贈り物</h2>
-    </div>
-
-    <div class=" text-center relative w-full max-w-4xl mx-auto mb-16 shadow-lg rounded-2xl overflow-hidden">
-              <!-- <h3 class="font-serif text-lg text-deep-bark font-semibold">分骨用カプセル</h3>
-        <p class="text-xs text-text-sub mt-2">外出時も一緒にいられるコンパクトな設計</p> -->
-      <img src="img/present-bg.jpeg" alt="特典プレゼント背景" class="w-full h-auto block">
-      
-      <div class="absolute inset-0 flex items-center justify-center">
-        <img src="img/present_test.png" alt="特典プレゼント" 
-          class="max-w-3xl md:w-1/2 h-auto drop-shadow-2xl">
+  <section class="bg-cream py-16 px-6 overflow-hidden">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-pink-mid text-sm font-bold tracking-widest block mb-2">PRESENT</span>
+        <h2 class="font-serif text-2xl md:text-3xl text-deep-bark font-medium">つむぎからの贈り物</h2>
       </div>
-    </div>
+     <div class="hidden md:block relative w-full max-w-4xl mx-auto mb-16 shadow-lg rounded-2xl overflow-hidden bg-white">
+  <img src="img/present-bg.jpeg" alt="特典プレゼントの背景" class="w-full h-auto block">
 
-    <div class="flex flex-col gap-2 bg-green-50 p-4 rounded-lg">
-      <div class="text-center">
-        <!-- <h3 class="font-serif text-lg text-deep-bark font-semibold">メモリアルブランケット</h3>
-        <p class="text-xs text-text-sub mt-2">いつまでも温もりを感じられる特注品</p> -->
-        <div class="bg-white p-4 rounded-xl shadow-sm mb-4 border border-pink-light">
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <img src="img/present-message.jpeg" alt="メッセージ" 
+         class="w-[45%] h-auto drop-shadow-2xl mix-blend-multiply">
+  </div>
+
+  <div class="absolute inset-0 flex items-center justify-end pr-[5%] pointer-events-none">
+    <img src="img/present-right.jpeg" alt="遺骨カプセル" 
+         class="w-[30%] h-auto drop-shadow-2xl mix-blend-multiply">
+  </div>
+</div>
+
+<div class="block md:hidden mb-12">
+  <img src="img/present_test.png" alt="特典プレゼント（SP）" 
+       class="w-full h-auto block rounded-2xl shadow-lg">
+</div>
+      <div class="flex flex-col gap-4 bg-green-50 p-4 rounded-lg">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-pink-light">
           <img src="img/branket_sp.jpeg" alt="メモリアルブランケット" class="w-full h-auto rounded-lg object-cover">
         </div>
-      </div>
-
-      <div class="text-center">
-        <div class="bg-white p-4 rounded-xl shadow-sm mb-4 border border-pink-light">
-          <img src="img/urn.jpeg" alt="遺骨カプセル" 
-            class="w-full aspect-auto h-auto rounded-lg object-cover mx-auto max-w-[880px]">
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-pink-light">
+          <img src="img/urn.jpeg" alt="遺骨カプセル" class="w-full h-auto rounded-lg object-cover mx-auto max-w-[880px]">
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<style>
-  @keyframes pulse-slow {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  .animate-pulse-slow {
-    animation: pulse-slow 4s ease-in-out infinite;
-  }
-</style>
   <!-- ========== FAQ ========== -->
   <section class="bg-white py-20 px-6">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12 reveal">
-        <span class="inline-block text-[0.62rem] tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">FAQ</span>
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">FAQ</span>
         <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">よくあるご質問</h2>
       </div>
       <div class="reveal max-w-2xl mx-auto divide-y divide-sand">
 
         <div class="faq-item">
           <div class="faq-q flex items-start gap-3 py-5 cursor-pointer" onclick="toggleFaq(this)">
-            <span class="w-6 h-6 rounded-full bg-rose text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-            <span class="flex-1 text-sm font-medium text-charcoal">ペットが亡くなったらまずどうすれば良いですか？</span>
+            <span class="w-7 h-7 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
+            <span class="flex-1 text-base font-medium text-charcoal">ペットが亡くなったらまずどうすれば良いですか？</span>
             <span class="faq-toggle text-pink text-sm flex-shrink-0 mt-1">▼</span>
           </div>
-          <div class="faq-a pb-5 pl-9">
-            <span class="inline-block w-5 h-5 rounded-full bg-sage text-white text-xs font-bold text-center leading-5 mr-1.5 align-middle">A</span>
-            <span class="text-xs text-text-sub leading-loose">まずはお身体をきれいにお清めしてあげます。その後、直射日光の当たらない場所でご安置します。段ボール箱に、ペットシートを敷き、薄手のタオルやお布団の上に寝かせてタオルなどを掛けてあげましょう。火葬までは、保冷剤やドライアイスでご遺体をできるだけ冷やしましょう。</span>
+          <div class="faq-a pb-5 pl-10">
+            <span class="inline-block w-6 h-6 rounded-full bg-sage text-white text-sm font-bold text-center leading-6 mr-2 align-middle">A</span>
+            <span class="text-readable-sm text-text-sub leading-loose">まずはお身体をきれいにお清めしてあげます。その後、直射日光の当たらない場所でご安置します。段ボール箱に、ペットシートを敷き、薄手のタオルやお布団の上に寝かせてタオルなどを掛けてあげましょう。火葬までは、保冷剤やドライアイスでご遺体をできるだけ冷やしましょう。</span>
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q flex items-start gap-3 py-5 cursor-pointer" onclick="toggleFaq(this)">
-            <span class="w-6 h-6 rounded-full bg-rose text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-            <span class="flex-1 text-sm font-medium text-charcoal">亡くなってから何日で火葬しないといけない？</span>
+            <span class="w-7 h-7 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
+            <span class="flex-1 text-base font-medium text-charcoal">亡くなってから何日で火葬しないといけない？</span>
             <span class="faq-toggle text-pink text-sm flex-shrink-0 mt-1">▼</span>
           </div>
-          <div class="faq-a pb-5 pl-9">
-            <span class="inline-block w-5 h-5 rounded-full bg-sage text-white text-xs font-bold text-center leading-5 mr-1.5 align-middle">A</span>
-            <span class="text-xs text-text-sub leading-loose">特に何日という決まりはありませんが、通常冬場は、お亡くなりから1〜2日以内・夏場は当日〜翌日には火葬の手配をしましょう。ご家族のご都合で、数日間で安置が必要な場合はご相談ください。</span>
+          <div class="faq-a pb-5 pl-10">
+            <span class="inline-block w-6 h-6 rounded-full bg-sage text-white text-sm font-bold text-center leading-6 mr-2 align-middle">A</span>
+            <span class="text-readable-sm text-text-sub leading-loose">特に何日という決まりはありませんが、通常冬場は、お亡くなりから1〜2日以内・夏場は当日〜翌日には火葬の手配をしましょう。ご家族のご都合で、数日間で安置が必要な場合はご相談ください。</span>
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q flex items-start gap-3 py-5 cursor-pointer" onclick="toggleFaq(this)">
-            <span class="w-6 h-6 rounded-full bg-rose text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-            <span class="flex-1 text-sm font-medium text-charcoal">移動火葬車は近隣に迷惑はかからないですか？</span>
+            <span class="w-7 h-7 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
+            <span class="flex-1 text-base font-medium text-charcoal">移動火葬車は近隣に迷惑はかからないですか？</span>
             <span class="faq-toggle text-pink text-sm flex-shrink-0 mt-1">▼</span>
           </div>
-          <div class="faq-a pb-5 pl-9">
-            <span class="inline-block w-5 h-5 rounded-full bg-sage text-white text-xs font-bold text-center leading-5 mr-1.5 align-middle">A</span>
-            <span class="text-xs text-text-sub leading-loose">優心セレモニーの火葬車は環境に配慮した火葬車で、外観は普通車とほとんど同じで音や煙もほとんどありませんので、近隣の方へご迷惑をかける事はありませんのでご安心ください。</span>
+          <div class="faq-a pb-5 pl-10">
+            <span class="inline-block w-6 h-6 rounded-full bg-sage text-white text-sm font-bold text-center leading-6 mr-2 align-middle">A</span>
+            <span class="text-readable-sm text-text-sub leading-loose">優心セレモニーの火葬車は環境に配慮した火葬車で、外観は普通車とほとんど同じで音や煙もほとんどありませんので、近隣の方へご迷惑をかける事はありませんのでご安心ください。</span>
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q flex items-start gap-3 py-5 cursor-pointer" onclick="toggleFaq(this)">
-            <span class="w-6 h-6 rounded-full bg-rose text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-            <span class="flex-1 text-sm font-medium text-charcoal">火葬時間はどのくらいですか？</span>
+            <span class="w-7 h-7 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
+            <span class="flex-1 text-base font-medium text-charcoal">火葬時間はどのくらいですか？</span>
             <span class="faq-toggle text-pink text-sm flex-shrink-0 mt-1">▼</span>
           </div>
-          <div class="faq-a pb-5 pl-9">
-            <span class="inline-block w-5 h-5 rounded-full bg-sage text-white text-xs font-bold text-center leading-5 mr-1.5 align-middle">A</span>
-            <span class="text-xs text-text-sub leading-loose">ペットちゃんの種類や大きさにより変動がありますが、目安としては約1時間前後となっております。1〜10kg：約30〜40分、10〜20kg：約40〜60分、20〜40kg：約60〜90分（気温や天候により変動する場合があります）。</span>
+          <div class="faq-a pb-5 pl-10">
+            <span class="inline-block w-6 h-6 rounded-full bg-sage text-white text-sm font-bold text-center leading-6 mr-2 align-middle">A</span>
+            <span class="text-readable-sm text-text-sub leading-loose">ペットちゃんの種類や大きさにより変動がありますが、目安としては約1時間前後となっております。1〜10kg：約30〜40分、10〜20kg：約40〜60分、20〜40kg：約60〜90分（気温や天候により変動する場合があります）。</span>
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q flex items-start gap-3 py-5 cursor-pointer" onclick="toggleFaq(this)">
-            <span class="w-6 h-6 rounded-full bg-rose text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-            <span class="flex-1 text-sm font-medium text-charcoal">急に亡くなってしまった場合でも対応できますか？</span>
+            <span class="w-7 h-7 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
+            <span class="flex-1 text-base font-medium text-charcoal">急に亡くなってしまった場合でも対応できますか？</span>
             <span class="faq-toggle text-pink text-sm flex-shrink-0 mt-1">▼</span>
           </div>
-          <div class="faq-a pb-5 pl-9">
-            <span class="inline-block w-5 h-5 rounded-full bg-sage text-white text-xs font-bold text-center leading-5 mr-1.5 align-middle">A</span>
-            <span class="text-xs text-text-sub leading-loose">はい、24時間365日受け付けております。突然のことでも、早朝・深夜・祝日を問わず、まずはお電話ください。最短で当日対応も可能です。</span>
+          <div class="faq-a pb-5 pl-10">
+            <span class="inline-block w-6 h-6 rounded-full bg-sage text-white text-sm font-bold text-center leading-6 mr-2 align-middle">A</span>
+            <span class="text-readable-sm text-text-sub leading-loose">はい、24時間365日受け付けております。突然のことでも、早朝・深夜・祝日を問わず、まずはお電話ください。最短で当日対応も可能です。</span>
           </div>
         </div>
-
-        <!-- <div class="faq-item">
-          <div class="faq-q flex items-start gap-3 py-5 cursor-pointer" onclick="toggleFaq(this)">
-            <span class="w-6 h-6 rounded-full bg-rose text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">Q</span>
-            <span class="flex-1 text-sm font-medium text-charcoal">福島・宮城のどのエリアでも対応していますか？</span>
-            <span class="faq-toggle text-pink text-sm flex-shrink-0 mt-1">▼</span>
-          </div>
-          <div class="faq-a pb-5 pl-9">
-            <span class="inline-block w-5 h-5 rounded-full bg-sage text-white text-xs font-bold text-center leading-5 mr-1.5 align-middle">A</span>
-            <span class="text-xs text-text-sub leading-loose">福島県・宮城県に対応しております。詳細なエリアについてはお電話にてご確認ください。お伺いできるかどうかを含め、まずはご相談ください。</span>
-          </div>
-        </div> -->
 
       </div>
     </div>
   </section>
 
-  <!-- ペット葬儀対応エリア -->
-   <section>
-    <div>葬儀対応エリア
-      <div>
-        福島
-        <div>会津坂下町｜会津美里町｜会津若松市｜浅川町｜飯舘村｜石川町｜泉崎村｜猪苗代町｜いわき市｜大熊町｜大玉村｜小野町｜鏡石町｜葛尾村｜金山町｜川内村｜川俣町｜喜多方市｜北塩原村｜国見町｜桑折町｜郡山市｜鮫川村｜下郷町｜昭和村｜白河市｜新地町｜須賀川市｜相馬市｜只見町｜伊達市｜棚倉町｜玉川村｜田村市｜天栄村｜富岡町｜中島村｜浪江町｜楢葉町｜西会津町｜西郷村｜二本松市｜塙町｜磐梯町｜檜枝岐村｜平田村｜広野町｜福島市｜双葉町｜古殿町｜三島町｜南会津町｜南相馬市｜三春町｜本宮市｜柳津町｜矢吹町｜矢祭町｜川村</div>
+  <!-- ========== 葬儀対応エリア（アコーディオン） ========== -->
+  <section class="bg-[#FDFAF7] py-20 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">SERVICE AREA</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">ペット葬儀対応エリア</h2>
+        <p class="text-readable text-text-sub mt-3">福島・宮城エリア全域に対応しております。</p>
       </div>
-      <div>
-        宮城
-        <div>石巻市｜岩沼市｜大河原町｜大崎市｜大郷町｜大衡村｜女川町｜角田市｜加美町｜川崎町｜栗原市｜気仙沼市｜蔵王町｜塩釜市｜色麻町｜七ケ宿町｜七ケ浜町｜柴田町｜白石市｜仙台市｜大和町｜多賀城市｜富谷市｜登米市｜名取市｜東松島市｜松島町｜丸森町｜美里町｜南三陸町｜村田町｜山元町｜利府町｜涌谷町｜亘理町</div>
+
+      <div class="reveal max-w-2xl mx-auto space-y-3">
+
+        <!-- 福島 -->
+        <div class="area-item border border-sand rounded-xl overflow-hidden bg-white">
+          <button class="w-full flex items-center justify-between px-6 py-4 text-left cursor-pointer hover:bg-pink-light/30 transition-colors" onclick="toggleArea(this)">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0">福</span>
+              <span class="text-base font-semibold text-deep-bark">福島県の対応エリア</span>
+            </div>
+            <span class="area-arrow text-pink text-sm">▼</span>
+          </button>
+          <div class="area-body px-6 pb-5 border-t border-sand">
+            <p class="text-sm text-text-sub leading-loose mt-4">
+              会津坂下町｜会津美里町｜会津若松市｜浅川町｜飯舘村｜石川町｜泉崎村｜猪苗代町｜いわき市｜大熊町｜大玉村｜小野町｜鏡石町｜葛尾村｜金山町｜川内村｜川俣町｜喜多方市｜北塩原村｜国見町｜桑折町｜郡山市｜鮫川村｜下郷町｜昭和村｜白河市｜新地町｜須賀川市｜相馬市｜只見町｜伊達市｜棚倉町｜玉川村｜田村市｜天栄村｜富岡町｜中島村｜浪江町｜楢葉町｜西会津町｜西郷村｜二本松市｜塙町｜磐梯町｜檜枝岐村｜平田村｜広野町｜福島市｜双葉町｜古殿町｜三島町｜南会津町｜南相馬市｜三春町｜本宮市｜柳津町｜矢吹町｜矢祭町
+            </p>
+          </div>
+        </div>
+
+        <!-- 宮城 -->
+        <div class="area-item border border-sand rounded-xl overflow-hidden bg-white">
+          <button class="w-full flex items-center justify-between px-6 py-4 text-left cursor-pointer hover:bg-pink-light/30 transition-colors" onclick="toggleArea(this)">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-rose text-white text-sm font-bold flex items-center justify-center flex-shrink-0">宮</span>
+              <span class="text-base font-semibold text-deep-bark">宮城県の対応エリア</span>
+            </div>
+            <span class="area-arrow text-pink text-sm">▼</span>
+          </button>
+          <div class="area-body px-6 pb-5 border-t border-sand">
+            <p class="text-sm text-text-sub leading-loose mt-4">
+              石巻市｜岩沼市｜大河原町｜大崎市｜大郷町｜大衡村｜女川町｜角田市｜加美町｜川崎町｜栗原市｜気仙沼市｜蔵王町｜塩釜市｜色麻町｜七ケ宿町｜七ケ浜町｜柴田町｜白石市｜仙台市｜大和町｜多賀城市｜富谷市｜登米市｜名取市｜東松島市｜松島町｜丸森町｜美里町｜南三陸町｜村田町｜山元町｜利府町｜涌谷町｜亘理町
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
-   </section>
+  </section>
 
   <!-- ========== お問い合わせ ========== -->
-<section class="contact-bg py-20 px-6 text-white" id="contact">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16 reveal">
-      <span class="inline-block text-[0.85rem] tracking-[0.25em] text-pink-mid border-b border-pink-mid/40 pb-1 mb-3 font-medium uppercase">Contact</span>
-      <h2 class="font-serif text-2xl md:text-3xl font-medium text-white tracking-wide mt-3">24時間いつでもご相談ください</h2>
-    </div>
+  <section class="contact-bg py-20 px-6 text-white" id="contact">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block text-sm tracking-[0.25em] text-pink-mid border-b border-pink-mid/40 pb-1 mb-3 font-medium uppercase">Contact</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-medium text-white tracking-wide mt-3">24時間いつでもご相談ください</h2>
+      </div>
 
-    <div class="reveal grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+      <div class="reveal flex flex-col items-center gap-8">
 
-      <div class="flex flex-col h-full">
-        <span class="block text-[0.85rem] tracking-[0.2em] text-pink-mid font-medium uppercase">📍 Service Area — 対応エリア</span>
-        
-        <div class="flex flex-wrap gap-2 mb-8">
-          <span class="bg-white/10 border border-white/20 text-sm px-4 py-2 rounded-full font-medium">🌸 福島県</span>
-          <span class="bg-white/10 border border-white/20 text-sm px-4 py-2 rounded-full font-medium">🌸 宮城県</span>
+        <!-- 所在地 -->
+        <div class="contact-center w-full max-w-lg">
+          <span class="block text-sm tracking-[0.2em] text-pink-mid font-medium uppercase mb-4">📍 Service Area — 対応エリア</span>
+          <div class="flex justify-center flex-wrap gap-3 mb-6">
+            <span class="bg-white/10 border border-white/20 text-sm px-5 py-2.5 rounded-full font-medium">🌸 福島県</span>
+            <span class="bg-white/10 border border-white/20 text-sm px-5 py-2.5 rounded-full font-medium">🌸 宮城県</span>
+          </div>
+          <div class="text-center pt-6 border-t border-white/10">
+            <strong class="block font-serif text-2xl text-white tracking-wider mb-3">ペットメモリアル つむぎ</strong>
+            <p class="text-sm text-white/60 leading-loose">
+              〒107-0062 東京都港区南青山7-3-1 3F/4F<br>
+              <span class="text-sm opacity-80">※福島・宮城県内 各所に待機車両を配置し、迅速にお伺いします。</span>
+            </p>
+          </div>
         </div>
 
-        <div class="pt-6 border-t border-white/10">
-          <strong class="block font-serif text-3xl md:text-3xl text-white tracking-wider mb-3">
-            ペットメモリアル つむぎ</span>
-          </strong>
-          <p class="text-[0.85rem] text-white/60 leading-loose">
-            〒107-0062 東京都港区南青山7-3-1 3F/4F<br>
-            <span class="text-[0.85rem] opacity-80">※福島・宮城県内 各所に待機車両を配置し、迅速にお伺いします。</span>
+        <!-- 電話カード -->
+        <div class="contact-card bg-white/10 border border-white/15 rounded-xl p-8 text-center shadow-xl w-full">
+          <span class="block text-sm tracking-[0.2em] text-pink-mid font-medium uppercase mb-4">📞 Phone — お電話でのご相談</span>
+          <div class="mb-5">
+            <div class="text-sm text-pink-mid font-medium uppercase mb-2">24時間365日受付・相談無料</div>
+            <div class="font-serif text-4xl md:text-5xl font-semibold tracking-tight">
+              <a href="tel:0800-3338617" class="cv-tel text-white hover:text-pink-mid transition-colors no-underline">0800-333-8617</a>
+            </div>
+          </div>
+          <p class="text-sm text-white/60 leading-relaxed mb-8">
+            最短当日対応。深夜・早朝でも専門スタッフが丁寧に対応いたします。<br>
+            まずは一度お電話ください。
           </p>
+          <a href="tel:0800-3338617" class="cv-tel btn-gradient block w-full max-w-sm mx-auto text-white text-center py-4 rounded-lg text-base font-semibold tracking-widest no-underline shadow-lg hover:brightness-110 transition-all">
+            📞 今すぐ電話する（無料）
+          </a>
         </div>
+
       </div>
-
-      <div class="bg-white/10 border border-white/15 rounded-xl p-8 flex flex-col h-full shadow-xl">
-        <span class="block text-[0.85rem] tracking-[0.2em] text-pink-mid font-medium uppercase">📞 Phone — お電話でのご相談</span>
-        
-        <div class="mb-5">
-          <div class="text-[0.85rem] text-pink-mid font-medium uppercase">24時間365日受付・相談無料</div>
-          <div class="font-serif text-3xl xl:text-4xl font-semibold tracking-tight">
-            <a href="tel:0800-3338617" class="cv-tel text-white hover:text-pink-mid transition-colors no-underline">
-              0800-333-8617
-            </a>
-          </div>
-        </div>
-
-        <p class="text-[0.85rem] text-white/60 leading-relaxed mb-8">
-          最短当日対応。深夜・早朝でも専門スタッフが<br>
-          丁寧に対応いたします。まずは一度お電話ください。
-        </p>
-
-        <a href="tel:0800-3338617"
-           class="cv-tel btn-gradient mt-auto block w-full text-white text-center py-4 rounded-lg text-sm font-medium uppercase tracking-widest no-underline shadow-lg hover:brightness-110 transition-all">
-          📞 今すぐ電話する（無料）
-        </a>
-      </div>
-
-      <!-- <div class="bg-white/10 border border-white/15 rounded-xl p-8 flex flex-col h-full">
-        <span class="block text-[0.85rem] tracking-[0.2em] text-pink-mid font-semibold mb-6 uppercase">✉ Form — メールでのご相談</span>
-        
-        <div class="space-y-3 flex-grow text-left">
-          <div class="grid grid-cols-1 gap-3">
-            <input type="text" placeholder="お名前 *" class="w-full bg-white/5 border border-white/20 rounded-md px-3 py-2.5 text-white text-sm focus:border-pink-mid outline-none transition-colors">
-            <input type="tel" placeholder="電話番号 *" class="w-full bg-white/5 border border-white/20 rounded-md px-3 py-2.5 text-white text-sm focus:border-pink-mid outline-none transition-colors">
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <select class="bg-charcoal border border-white/20 rounded-md px-2 py-2.5 text-white text-xs outline-none">
-              <option>地域選択</option>
-              <option>福島県</option>
-              <option>宮城県</option>
-            </select>
-            <select class="bg-charcoal border border-white/20 rounded-md px-2 py-2.5 text-white text-xs outline-none">
-              <option>プラン</option>
-              <option>合同</option>
-              <option>個別</option>
-            </select>
-          </div>
-          <textarea placeholder="ご要望・ご質問" class="w-full bg-white/5 border border-white/20 rounded-md px-3 py-2.5 text-white text-sm h-20 outline-none resize-none"></textarea>
-          
-          <button class="w-full btn-gradient text-white py-3.5 rounded-lg text-sm font-bold tracking-widest transition-all duration-300 shadow-md">
-            無料相談を申し込む →
-          </button>
-        </div>
-        <p class="text-[0.85rem] text-white/30 text-center mt-3">※お急ぎの方はお電話をご利用ください</p>
-      </div> -->
-
     </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- ========== フッター ========== -->
-  <footer class="bg-charcoal text-white/45 text-center py-8 px-6 text-xs tracking-wide space-y-1.5">
+  <footer class="bg-charcoal text-white/45 text-center py-8 px-6 text-sm tracking-wide space-y-2">
     <p>© 2021 Pet Memorial Tsumugi. All Rights Reserved.</p>
     <p>ペットメモリアル つむぎ ／ 0800-333-8617（24時間365日受付・相談無料）</p>
   </footer>
 
   <!-- ========== モバイル固定CTA ========== -->
-  <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 flex gap-2.5 px-4 py-2.5
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 flex gap-2.5 px-4 py-3
               bg-cream/97 border-t border-pink-mid shadow-[0_-4px_20px_rgba(244,167,181,0.2)]">
-    <a href="tel:0800-3338617"
-       class="cv-tel flex-1 btn-gradient text-white text-center py-3 rounded-lg text-xs font-semibold
-              tracking-wide no-underline">
+    <a href="tel:0800-3338617" class="cv-tel flex-1 btn-gradient text-white text-center py-3.5 rounded-lg text-sm font-semibold tracking-wide no-underline">
       📞 今すぐ電話（無料）
     </a>
-    <a href="#contact"
-       class="flex-1 bg-sage-light text-deep-bark text-center py-3 rounded-lg text-xs font-semibold
-              tracking-wide border border-sage no-underline">
-      ✉ メール相談
+    <a href="#contact" class="flex-1 bg-sage-light text-deep-bark text-center py-3.5 rounded-lg text-sm font-semibold tracking-wide border border-sage no-underline">
+      📍 対応エリア確認
     </a>
   </div>
 
   <script>
-    // ─── コンバージョン計測 ───
-    function gtagReportConversionTel() {
-      /* GTM未使用の場合はコメントを外す
-      gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXXX/YOUR-LABEL-TEL' });
-      gtag('event', 'tel_click', { 'event_category': 'contact', 'event_label': 'header_tel' });
-      */
-      console.log('[CV] 電話タップ');
-    }
-    function gtagReportConversionForm() {
-      /* gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXXX/YOUR-LABEL-FORM' }); */
-      console.log('[CV] フォーム送信');
-    }
-
-    document.querySelectorAll('.cv-tel').forEach(function(el) {
-      el.addEventListener('click', gtagReportConversionTel);
-    });
-
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      var name = document.getElementById('form-name').value.trim();
-      var tel  = document.getElementById('form-tel').value.trim();
-      if (!name || !tel) { alert('お名前と電話番号をご入力ください。'); return; }
-      gtagReportConversionForm();
-      alert('お問い合わせありがとうございます。\n担当者より折り返しご連絡いたします。\nお急ぎの場合はお電話（0800-333-8617）にてご連絡ください。');
-    }
-
-    // ─── FAQ アコーディオン ───
+    // FAQ アコーディオン
     function toggleFaq(el) {
       var item = el.parentElement;
       var isOpen = item.classList.contains('open');
@@ -1071,7 +925,15 @@
       if (!isOpen) item.classList.add('open');
     }
 
-    // ─── スクロールアニメーション ───
+    // エリアアコーディオン
+    function toggleArea(btn) {
+      var item = btn.parentElement;
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.area-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // スクロールアニメーション
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -1081,6 +943,11 @@
       });
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+    // CV計測
+    document.querySelectorAll('.cv-tel').forEach(function(el) {
+      el.addEventListener('click', function() { console.log('[CV] 電話タップ'); });
+    });
   </script>
 </body>
 </html>
