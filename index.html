@@ -133,6 +133,408 @@
   </style>
 </head>
 
+<!-- チャット相談 -->
+<div id="chat-circle" onclick="toggleChat()">
+    <div class="main-text">ご相談・お申込み</div>
+    <div class="sub-text">お申込み後、30分以内を目安にご連絡いたします。</div>
+</div>
+
+<div id="chat-box" style="display:none;">
+    <div class="chat-header">ペット火葬 受付窓口</div>
+    <div id="chat-content" class="chat-content"></div>
+    <div id="chat-input-area" class="chat-input-area"></div>
+</div>
+
+<style>
+/* --- チャットボタン（右下） --- */
+#chat-circle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff8c00;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    
+    /* 2行を中央に配置 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.3;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#chat-circle:hover {
+    background: #e67e00;
+    transform: scale(1.05);
+}
+
+#chat-circle .main-text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#chat-circle .sub-text {
+    font-size: 11px;
+    font-weight: normal;
+    margin-top: 3px;
+    opacity: 0.9;
+}
+
+/* --- チャットウィンドウ本体 --- */
+#chat-box {
+    position: fixed;
+    bottom: 95px; /* ボタンの上に配置 */
+    right: 20px;
+    width: 340px;
+    height: 520px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    display: none; /* JSで切り替え */
+    flex-direction: column;
+    z-index: 1000;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+/* ヘッダー */
+.chat-header {
+    background: #ff8c00;
+    color: white;
+    padding: 16px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 会話表示エリア */
+.chat-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* メッセージの吹き出し */
+.msg {
+    padding: 10px 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 85%;
+    word-wrap: break-word;
+}
+
+.admin-msg {
+    background: #f0f0f0;
+    align-self: flex-start;
+    color: #333;
+    border-bottom-left-radius: 2px;
+}
+
+.user-msg {
+    background: #ff8c00;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+/* 入力・操作エリア */
+.chat-input-area {
+    padding: 12px;
+    border-top: 1px solid #eee;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-input-area input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.chat-input-area input:focus {
+    border-color: #ff8c00;
+}
+
+.chat-input-area button {
+    background: #ff8c00;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.chat-input-area button:hover {
+    opacity: 0.9;
+}
+
+/* ボタンのグループ（選択肢） */
+.chat-btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chat-btn {
+    background: #fff;
+    border: 1.5px solid #ff8c00;
+    color: #ff8c00;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    flex: 1;
+    min-width: 100px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.chat-btn:hover {
+    background: #ff8c00;
+    color: #fff;
+}
+
+/* --- スマホ向け調整 --- */
+@media screen and (max-width: 480px) {
+    #chat-circle {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 20px;
+        width: calc(100% - 30px); /* スマホでは横長にするのもあり */
+        max-width: 300px;
+    }
+    
+    #chat-box {
+        bottom: 85px;
+        right: 10px;
+        left: 10px; /* 左右にマージンを持たせる */
+        width: auto;
+        height: 80%; /* 画面の高さに合わせる */
+    }
+
+    .main-text { font-size: 15px; }
+    .sub-text { font-size: 9px; }
+}
+  </style>
+
+<script>
+let userData = {};
+
+function toggleChat() {
+    const box = document.getElementById('chat-box');
+    box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+    if (box.style.display === 'flex' && !userData.step) {
+        askArea();
+    }
+}
+
+function addMessage(text, type) {
+    const content = document.getElementById('chat-content');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `msg ${type}-msg`;
+    msgDiv.innerText = text;
+    content.appendChild(msgDiv);
+    content.scrollTop = content.scrollHeight;
+}
+
+// 1. エリア選択
+function askArea() {
+    userData.step = 1;
+    addMessage("宮城・福島エリア限定の受付窓口です。ご希望のエリアを選択してください。", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <div class="chat-btn-group">
+            <button class="chat-btn" onclick="saveArea('宮城')">宮城エリア</button>
+            <button class="chat-btn" onclick="saveArea('福島')">福島エリア</button>
+        </div>`;
+}
+
+function saveArea(area) {
+    userData.area = area;
+    addMessage(area + "エリア", "user");
+    setTimeout(askPet, 600);
+}
+
+// 2. ペットの種類と体重
+function askPet() {
+    addMessage("大切なペットの種類とおおよその体重を教えてください。", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <input type="text" id="pet-input" placeholder="例：猫 3kg">
+        <button onclick="savePet()">次へ</button>`;
+}
+
+function savePet() {
+    const val = document.getElementById('pet-input').value;
+    if(!val) return;
+    userData.pet = val;
+    addMessage(val, "user");
+    setTimeout(askPlan, 600);
+}
+
+// 3. プラン選択
+function askPlan() {
+    addMessage("ご希望のプランはございますか？", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <div class="chat-btn-group">
+            <button class="chat-btn" onclick="savePlan('合同火葬プラン')">合同火葬プラン</button>
+            <button class="chat-btn" onclick="savePlan('個別火葬プラン')">個別火葬プラン</button>
+            <button class="chat-btn" onclick="savePlan('立会い個別火葬プラン')">立会い個別火葬プラン</button>
+            <button class="chat-btn" onclick="savePlan('相談して決める')">相談して決める</button>
+        </div>`;
+}
+
+function savePlan(plan) {
+    userData.plan = plan;
+    addMessage(plan, "user");
+    setTimeout(askName, 600);
+}
+
+// 4. お名前
+function askName() {
+    addMessage("お名前を教えてください。", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <input type="text" id="name-input" placeholder="お名前">
+        <button onclick="saveName()">次へ</button>`;
+}
+
+function saveName() {
+    const val = document.getElementById('name-input').value;
+    if(!val) return;
+    userData.name = val;
+    addMessage(val + " 様", "user");
+    setTimeout(askTel, 600);
+}
+
+// 5. 電話番号
+function askTel() {
+    addMessage("折り返しお電話差し上げる際の番号を入力してください。", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <input type="tel" id="tel-input" placeholder="090-0000-0000">
+        <button onclick="saveTel()">次へ</button>`;
+}
+
+// 5. 電話番号を保存して、第1希望の日付へ
+function saveTel() {
+    const val = document.getElementById('tel-input').value;
+    if(!val) return;
+    userData.tel = val;
+    addMessage(val, "user");
+    setTimeout(() => askDate(1), 600); // 第1希望
+}
+
+// 日付と時間帯の選択肢を生成
+function askDate(choiceNum) {
+    const label = choiceNum === 1 ? "【第1希望】" : "【第2希望】";
+    addMessage(`${label}のご希望日を選択してください。`, "admin");
+    
+    const days = ['日','月','火','水','木','金','土'];
+    const inputArea = document.getElementById('chat-input-area');
+    let html = '<div class="chat-btn-group">';
+    
+    for (let i = 0; i <= 2; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() + i);
+        const dateStr = `${d.getMonth() + 1}/${d.getDate()}(${days[d.getDay()]})`;
+        const dateKey = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+        html += `<button class="chat-btn" onclick="saveDate(${choiceNum}, '${dateStr}')">${i === 0 ? '今日 ' : ''}${dateStr}</button>`;
+    }
+    html += '</div>';
+    inputArea.innerHTML = html;
+}
+
+function saveDate(choiceNum, dateStr) {
+    if(choiceNum === 1) userData.date1 = dateStr;
+    else userData.date2 = dateStr;
+    
+    addMessage(dateStr, "user");
+    setTimeout(() => askTime(choiceNum), 600);
+}
+
+function askTime(choiceNum) {
+    addMessage("ご希望の時間帯を選択してください。", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    const times = ["8時～12時", "12時～16時", "16時～20時"];
+    
+    let html = '<div class="chat-btn-group">';
+    times.forEach(t => {
+        html += `<button class="chat-btn" onclick="saveTime(${choiceNum}, '${t}')">${t}</button>`;
+    });
+    html += '</div>';
+    inputArea.innerHTML = html;
+}
+
+function saveTime(choiceNum, timeStr) {
+    if(choiceNum === 1) {
+        userData.time1 = timeStr;
+        addMessage(timeStr, "user");
+        setTimeout(() => askDate(2), 600); // 第2希望へ
+    } else {
+        userData.time2 = timeStr;
+        addMessage(timeStr, "user");
+        setTimeout(finalConfirm, 600); // 最終確認へ
+    }
+}
+
+// 最終確認と送信
+function finalConfirm() {
+    addMessage("ありがとうございます。上記の内容で申し込んでもよろしいでしょうか？", "admin");
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <button class="chat-btn" onclick="finalSubmit()" style="background:#ff8c00; color:#fff;">この内容で申し込む</button>
+        <button class="chat-btn" onclick="location.reload()" style="border-color:#ccc; color:#666;">やり直す</button>
+    `;
+}
+
+function finalSubmit() {
+    addMessage("送信しています...", "admin");
+
+    // 日時を一つの文字列にまとめる（PHP側の変更を最小限にするため）
+    userData.datetime = `第1希望：${userData.date1} ${userData.time1} / 第2希望：${userData.date2} ${userData.time2}`;
+
+    fetch('send_mail.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(result => {
+        if(result.status === "success") {
+            addMessage("送信が完了しました。担当者より迅速にご連絡いたします。", "admin");
+            document.getElementById('chat-input-area').innerHTML = "送信完了";
+        } else {
+            addMessage("エラーが発生しました。お電話にてお問い合わせください。", "admin");
+        }
+    })
+    .catch(() => addMessage("通信エラーが発生しました。", "admin"));
+}
+</script>
+<!-- チャット相談ここまで -->
+
 <body class="bg-cream text-charcoal leading-relaxed overflow-x-hidden pb-16 md:pb-0">
 
   <!-- ========== ヘッダー ========== -->
@@ -181,7 +583,7 @@
 
       <div class="fade-up">
         <span class="inline-flex items-center gap-2 text-xs tracking-widest text-deep-bark bg-pink-mid px-3.5 py-1.5 rounded-full mb-5 font-medium">
-          🌸 福島・宮城エリア対応
+        福島・宮城エリア対応
         </span>
         <h1 class="font-serif text-3xl md:text-4xl font-medium text-deep-bark leading-relaxed tracking-wide mb-4">
           大切な家族を、<br><em class="hero-em">最後まで</em><br>心を込めてお見送り。
@@ -218,7 +620,7 @@
 
       <div class="fade-up-delay">
         <div class="bg-white border-2 border-pink rounded-xl p-7 shadow-[0_8px_32px_rgba(244,167,181,0.2)]">
-          <div class="text-sm tracking-wider text-pink font-semibold text-center mb-3">
+          <div class="text-sm tracking-wider text-pink-500 medium text-center mb-3">
             🐾 ペットのお葬式の事ならなんでもご相談ください
           </div>
           <div class="text-center mb-2">
@@ -228,7 +630,7 @@
             </a>
           </div>
           <div class="text-center text-sm text-text-light mb-5">
-            <strong class="text-pink font-semibold">24時間365日いつでもOK</strong><br>
+            <strong class="text-pink-500 font-medium">24時間365日いつでもOK</strong><br>
             どんな不安にも専門スタッフが懇切丁寧に対応
           </div>
           <a href="tel:0800-3338617" class="cv-tel btn-gradient block w-full text-white text-center py-4 rounded-lg text-base font-semibold tracking-wider mb-2.5 transition-all duration-300 no-underline shadow-md">
@@ -676,25 +1078,6 @@
     </div>
   </section>
 
-  <!-- ========== 映像 ========== -->
-  <!-- <section class="bg-cream py-16 px-6">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-10 reveal">
-        <span class="inline-block text-xs tracking-[0.25em] text-pink-mid border-b border-pink-mid/40 pb-1 mb-3 font-medium uppercase">Movie</span>
-        <h2 class="font-serif text-2xl md:text-3xl font-medium text-deep-bark tracking-wide mt-3">映像で見るご供養の流れ</h2>
-      </div>
-      <div class="reveal shadow-xl rounded-2xl overflow-hidden bg-black aspect-video mb-6">
-        <iframe class="w-full h-full" src="https://www.youtube.com/embed/Jvz_T-uGoWw?si=iDNLbZNNqrF6scMd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
-      <div class="reveal bg-white/60 border border-pink-light/50 rounded-lg p-5">
-        <p class="text-sm text-text-sub leading-loose">
-          <span class="text-pink-mid font-bold">※</span> この映像は「立ち合い個別火葬プラン」と「合同供養」の流れになります。<br>
-          <span class="text-pink-mid font-bold">※</span> 「合同火葬プラン」ではご返骨不可になります。また、「個別火葬プラン」はお客様によるお骨上げはありませんのでご注意ください。
-        </p>
-      </div>
-    </div>
-  </section> -->
-
   <!-- ========== キャンペーン ========== -->
   <section class="bg-cream py-16 px-6 overflow-hidden">
     <div class="max-w-4xl mx-auto">
@@ -772,7 +1155,7 @@
           </div>
           <div class="faq-a pb-5 pl-10">
             <span class="inline-block w-6 h-6 rounded-full bg-sage text-white text-sm font-bold text-center leading-6 mr-2 align-middle">A</span>
-            <span class="text-readable-sm text-text-sub leading-loose">優心セレモニーの火葬車は環境に配慮した火葬車で、外観は普通車とほとんど同じで音や煙もほとんどありませんので、近隣の方へご迷惑をかける事はありませんのでご安心ください。</span>
+            <span class="text-readable-sm text-text-sub leading-loose">ペットメモリアルつむぎの火葬車は環境に配慮した火葬車で、外観は普通車とほとんど同じで音や煙もほとんどありませんので、近隣の方へご迷惑をかける事はありませんのでご安心ください。</span>
           </div>
         </div>
 
@@ -805,7 +1188,7 @@
   </section>
 
   <!-- ========== 葬儀対応エリア（アコーディオン） ========== -->
-  <section class="bg-[#FDFAF7] py-20 px-6">
+  <section class="bg-[#FDFAF7] py-20 px-6" id="area">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12 reveal">
         <span class="inline-block text-xs tracking-[0.25em] text-pink border-b border-pink-mid pb-1 mb-3 font-medium">SERVICE AREA</span>
@@ -865,8 +1248,8 @@
         <div class="contact-center w-full max-w-lg">
           <span class="block text-sm tracking-[0.2em] text-pink-mid font-medium uppercase mb-4">📍 Service Area — 対応エリア</span>
           <div class="flex justify-center flex-wrap gap-3 mb-6">
-            <span class="bg-white/10 border border-white/20 text-sm px-5 py-2.5 rounded-full font-medium">🌸 福島県</span>
-            <span class="bg-white/10 border border-white/20 text-sm px-5 py-2.5 rounded-full font-medium">🌸 宮城県</span>
+            <span class="bg-white/10 border border-white/20 text-sm px-5 py-2.5 rounded-full font-medium">福島県</span>
+            <span class="bg-white/10 border border-white/20 text-sm px-5 py-2.5 rounded-full font-medium">宮城県</span>
           </div>
           <div class="text-center pt-6 border-t border-white/10">
             <strong class="block font-serif text-2xl text-white tracking-wider mb-3">ペットメモリアル つむぎ</strong>
@@ -911,7 +1294,7 @@
     <a href="tel:0800-3338617" class="cv-tel flex-1 btn-gradient text-white text-center py-3.5 rounded-lg text-sm font-semibold tracking-wide no-underline">
       📞 今すぐ電話（無料）
     </a>
-    <a href="#contact" class="flex-1 bg-sage-light text-deep-bark text-center py-3.5 rounded-lg text-sm font-semibold tracking-wide border border-sage no-underline">
+    <a href="#area" class="flex-1 bg-sage-light text-deep-bark text-center py-3.5 rounded-lg text-sm font-semibold tracking-wide border border-sage no-underline">
       📍 対応エリア確認
     </a>
   </div>
@@ -949,5 +1332,68 @@
       el.addEventListener('click', function() { console.log('[CV] 電話タップ'); });
     });
   </script>
+
+  <!-- チャットの問い合わせ機能
+  <script>
+    let userData = {};
+
+// チャットの開始
+function toggleChat() {
+    const box = document.getElementById('chat-box');
+    box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+    if (box.style.display === 'flex' && !userData.step) {
+        askArea();
+    }
+}
+
+// メッセージ表示用
+function addMessage(text, type) {
+    const content = document.getElementById('chat-content');
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `msg ${type}-msg`;
+    msgDiv.innerText = text;
+    content.appendChild(msgDiv);
+    content.scrollTop = content.scrollHeight;
+}
+
+// ステップ1: エリア選択
+function askArea() {
+    userData.step = 1;
+    addMessage("宮城・福島エリア限定の受付窓口です。どちらのエリアをご希望ですか？", "admin");
+    
+    const inputArea = document.getElementById('chat-input-area');
+    inputArea.innerHTML = `
+        <button class="chat-btn" onclick="nextStep('宮城')">宮城エリア</button>
+        <button class="chat-btn" onclick="nextStep('福島')">福島エリア</button>
+    `;
+}
+
+// ステップ2: ペットの種類と体重
+function nextStep(choice) {
+    if (userData.step === 1) {
+        userData.area = choice;
+        addMessage(choice, "user");
+        
+        setTimeout(() => {
+            addMessage("承知いたしました。次に、大切なペットの種類とおおよその体重（例：猫・3kgなど）を教えてください。", "admin");
+            const inputArea = document.getElementById('chat-input-area');
+            inputArea.innerHTML = `
+                <input type="text" id="pet-info" placeholder="例：猫 3kg" style="flex:1;">
+                <button onclick="savePetInfo()">送信</button>
+            `;
+        }, 600);
+    }
+}
+
+// ペット情報の保存（ここからさらに「プラン選択」へ続けます）
+function savePetInfo() {
+    const info = document.getElementById('pet-info').value;
+    if(!info) return;
+    userData.pet = info;
+    addMessage(info, "user");
+    // ここで次のステップ（プラン選択）の関数を呼ぶ
+    // 最終的に fetch('send_mail.php', { method: 'POST', body: JSON.stringify(userData) }) で送信
+}
+  </script> -->
 </body>
 </html>
